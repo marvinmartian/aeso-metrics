@@ -14,8 +14,10 @@ services:
     container_name: aeso
     networks:
       - monitor-net
-    ports:
-      - "8282:8080"
+    expose:
+      - 8080
+    # ports:
+    #   - "8282:8080"
 
   prometheus:
     image: prom/prometheus:latest
@@ -49,6 +51,8 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD}
       - GF_USERS_ALLOW_SIGN_UP=false
     restart: unless-stopped
+    ports:
+      - "3000:3000"
     expose:
       - 3000
     networks:
