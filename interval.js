@@ -322,7 +322,7 @@ function callPoolPriceEveryNSeconds(n) {
 }
 
 getCurrentPoolPrice();
-callPoolPriceEveryNSeconds(3600);
+callPoolPriceEveryNSeconds(300);
 
 getCurrentStats();
 callStatsScraperEveryNSeconds(120);
