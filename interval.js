@@ -6,6 +6,7 @@ const http = require('http')
 const url = require('url')
 
 const client = require('prom-client');
+const { exit } = require("process");
 const collectDefaultMetrics = client.collectDefaultMetrics;
 const Registry = client.Registry;
 const register = new Registry();
@@ -241,31 +242,56 @@ async function getCurrentStats() {
     var aeso_gas_table = $('body > table:nth-child(10) > tbody > tr > td:nth-child(1) > table > tbody > tr > td:nth-child(2) > table > tbody').children();
     aeso_stats_array.gas = { 'Simple': {}, 'Cogeneration': {}, 'Combined': {} };
     var active = 'simple';
+
     aeso_gas_table.each(function (i, elem) {
         
         let row_data = $(this).children('td').toArray()
         // let row_name = $(row_data[0]).text().replace(/[^a-zA-Z0-9 ]/g, "").replace(/ /g,"_");
         let row_name = $(row_data[0]).text();
-        if ( i >= 3 && i <= 31 ) {
-            aeso_stats_array.gas.Simple[`${row_name}`] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
-            gas_mc_stats.set({asset: $(row_data[0]).text(), type: 'Simple' },parseInt($(row_data[1]).text()));
-            gas_tng_stats.set({asset: $(row_data[0]).text(), type: 'Simple' },parseInt($(row_data[2]).text()));
-            gas_dnc_stats.set({asset: $(row_data[0]).text(), type: 'Simple' },parseInt($(row_data[3]).text()));
+        switch (row_name) {
+          case 'Simple Cycle':
+            active = 'Simple'
+            break;
+          case 'Cogeneration':
+            active = 'Cogeneration'
+            break;
+          case 'Combined Cycle':
+            active = 'Combined'
+            break;
+       
+          default:
+            break;
         }
 
-        if ( i >= 35 && i <= 71 ) {
-            aeso_stats_array.gas.Cogeneration[`${row_name}`] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
-            gas_mc_stats.set({asset: $(row_data[0]).text(), type: 'Cogeneration' },parseInt($(row_data[1]).text()));
-            gas_tng_stats.set({asset: $(row_data[0]).text(), type: 'Cogeneration' },parseInt($(row_data[2]).text()));
-            gas_dnc_stats.set({asset: $(row_data[0]).text(), type: 'Cogeneration' },parseInt($(row_data[3]).text()));
+        if ( row_data.length > 1 && $(row_data[0]).text() != "ASSET" ) {
+          // console.log(i,active,row_name);
+          gas_mc_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[1]).text()));
+          gas_tng_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[2]).text()));
+          gas_dnc_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[3]).text()));
         }
+        
 
-        if ( i >= 74 && i <= 79 ) {
-            aeso_stats_array.gas.Combined[`${row_name}`] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
-            gas_mc_stats.set({asset: $(row_data[0]).text(), type: 'Combined' },parseInt($(row_data[1]).text()));
-            gas_tng_stats.set({asset: $(row_data[0]).text(), type: 'Combined' },parseInt($(row_data[2]).text()));
-            gas_dnc_stats.set({asset: $(row_data[0]).text(), type: 'Combined' },parseInt($(row_data[3]).text()));
-        }
+        // if ( i >= 3 && i <= 31 ) {
+        //     aeso_stats_array.gas.Simple[`${row_name}`] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
+        //     // console.log(aeso_stats_array.gas[`${active}`][`${row_name}`]);
+        //     gas_mc_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[1]).text()));
+        //     gas_tng_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[2]).text()));
+        //     gas_dnc_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[3]).text()));
+        // }
+
+        // if ( i >= 35 && i <= 71 ) {
+        //     aeso_stats_array.gas.Cogeneration[`${row_name}`] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
+        //     gas_mc_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[1]).text()));
+        //     gas_tng_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[2]).text()));
+        //     gas_dnc_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[3]).text()));
+        // }
+
+        // if ( i >= 74 && i <= 79 ) {
+        //     aeso_stats_array.gas.Combined[`${row_name}`] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
+        //     gas_mc_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[1]).text()));
+        //     gas_tng_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[2]).text()));
+        //     gas_dnc_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[3]).text()));
+        // }
 
 
     });
@@ -322,10 +348,10 @@ function callPoolPriceEveryNSeconds(n) {
 }
 
 getCurrentPoolPrice();
-callPoolPriceEveryNSeconds(300);
+// callPoolPriceEveryNSeconds(300);
 
 getCurrentStats();
-callStatsScraperEveryNSeconds(120);
+// callStatsScraperEveryNSeconds(120);
 
 
 const server = http.createServer(async (req, res) => {
