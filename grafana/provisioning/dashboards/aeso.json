@@ -467,7 +467,7 @@
       "pluginVersion": "7.4.2",
       "targets": [
         {
-          "expr": "sum(gas_tng_stats)/sum(gas_mc_stats)",
+          "expr": "sum(gas_tng_stats >= 0)/sum(gas_mc_stats >= 0)",
           "format": "time_series",
           "instant": false,
           "interval": "120s",
@@ -2175,5 +2175,5 @@
   "timezone": "",
   "title": "AESO - Status",
   "uid": "LATiptyGk",
-  "version": 36
+  "version": 37
 }
