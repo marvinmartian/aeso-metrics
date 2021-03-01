@@ -253,14 +253,14 @@ async function getCurrentStats() {
             gas_dnc_stats.set({asset: $(row_data[0]).text(), type: 'Simple' },parseInt($(row_data[3]).text()));
         }
 
-        if ( i >= 34 && i <= 70 ) {
+        if ( i >= 35 && i <= 71 ) {
             aeso_stats_array.gas.Cogeneration[`${row_name}`] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
             gas_mc_stats.set({asset: $(row_data[0]).text(), type: 'Cogeneration' },parseInt($(row_data[1]).text()));
             gas_tng_stats.set({asset: $(row_data[0]).text(), type: 'Cogeneration' },parseInt($(row_data[2]).text()));
             gas_dnc_stats.set({asset: $(row_data[0]).text(), type: 'Cogeneration' },parseInt($(row_data[3]).text()));
         }
 
-        if ( i >= 73 && i <= 78 ) {
+        if ( i >= 74 && i <= 79 ) {
             aeso_stats_array.gas.Combined[`${row_name}`] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
             gas_mc_stats.set({asset: $(row_data[0]).text(), type: 'Combined' },parseInt($(row_data[1]).text()));
             gas_tng_stats.set({asset: $(row_data[0]).text(), type: 'Combined' },parseInt($(row_data[2]).text()));
