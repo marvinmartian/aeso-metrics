@@ -12,12 +12,39 @@
       }
     ]
   },
+  "description": "Alberta Electric System Operator - Supply Demand",
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
   "id": 7,
   "links": [],
   "panels": [
+    {
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 42,
+      "options": {
+        "content": "This dashboard is using data provided from: [Alberta Electric System Operator](http://ets.aeso.ca/ets_web/ip/Market/Reports/CSDReportServlet)\n         ",
+        "mode": "markdown"
+      },
+      "pluginVersion": "7.4.2",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Disclaimer / Credit",
+      "type": "text"
+    },
     {
       "datasource": null,
       "description": "",
@@ -49,7 +76,7 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 0
+        "y": 2
       },
       "id": 37,
       "options": {
@@ -115,7 +142,7 @@
         "h": 4,
         "w": 5,
         "x": 4,
-        "y": 0
+        "y": 2
       },
       "id": 28,
       "options": {
@@ -183,7 +210,7 @@
         "h": 4,
         "w": 5,
         "x": 9,
-        "y": 0
+        "y": 2
       },
       "id": 29,
       "options": {
@@ -251,7 +278,7 @@
         "h": 4,
         "w": 5,
         "x": 14,
-        "y": 0
+        "y": 2
       },
       "id": 30,
       "options": {
@@ -319,7 +346,7 @@
         "h": 4,
         "w": 5,
         "x": 19,
-        "y": 0
+        "y": 2
       },
       "id": 31,
       "options": {
@@ -378,7 +405,7 @@
         "h": 4,
         "w": 4,
         "x": 0,
-        "y": 4
+        "y": 6
       },
       "id": 32,
       "options": {
@@ -446,7 +473,7 @@
         "h": 4,
         "w": 5,
         "x": 4,
-        "y": 4
+        "y": 6
       },
       "id": 33,
       "options": {
@@ -514,7 +541,7 @@
         "h": 4,
         "w": 5,
         "x": 9,
-        "y": 4
+        "y": 6
       },
       "id": 34,
       "options": {
@@ -582,7 +609,7 @@
         "h": 4,
         "w": 5,
         "x": 14,
-        "y": 4
+        "y": 6
       },
       "id": 35,
       "options": {
@@ -650,7 +677,7 @@
         "h": 4,
         "w": 5,
         "x": 19,
-        "y": 4
+        "y": 6
       },
       "id": 38,
       "options": {
@@ -701,7 +728,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 8
+        "y": 10
       },
       "hiddenSeries": false,
       "id": 40,
@@ -799,7 +826,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 16
+        "y": 18
       },
       "hiddenSeries": false,
       "id": 20,
@@ -904,7 +931,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 23
+        "y": 25
       },
       "hiddenSeries": false,
       "id": 2,
@@ -1002,7 +1029,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 32
+        "y": 34
       },
       "hiddenSeries": false,
       "id": 18,
@@ -1116,7 +1143,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 40
+        "y": 42
       },
       "id": 24,
       "panels": [],
@@ -1143,7 +1170,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 41
+        "y": 43
       },
       "hiddenSeries": false,
       "id": 21,
@@ -1242,7 +1269,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 41
+        "y": 43
       },
       "hiddenSeries": false,
       "id": 22,
@@ -1328,7 +1355,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 49
+        "y": 51
       },
       "id": 11,
       "panels": [],
@@ -1354,7 +1381,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 50
+        "y": 52
       },
       "hiddenSeries": false,
       "id": 9,
@@ -1450,7 +1477,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 50
+        "y": 52
       },
       "hiddenSeries": false,
       "id": 12,
@@ -1536,7 +1563,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 58
+        "y": 60
       },
       "id": 6,
       "panels": [],
@@ -1562,7 +1589,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 59
+        "y": 61
       },
       "hiddenSeries": false,
       "id": 4,
@@ -1658,7 +1685,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 59
+        "y": 61
       },
       "hiddenSeries": false,
       "id": 8,
@@ -1744,7 +1771,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 67
+        "y": 69
       },
       "id": 14,
       "panels": [],
@@ -1770,7 +1797,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 68
+        "y": 70
       },
       "hiddenSeries": false,
       "id": 15,
@@ -1869,7 +1896,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 68
+        "y": 70
       },
       "hiddenSeries": false,
       "id": 25,
@@ -1968,7 +1995,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 76
+        "y": 78
       },
       "hiddenSeries": false,
       "id": 26,
@@ -2066,7 +2093,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 76
+        "y": 78
       },
       "hiddenSeries": false,
       "id": 16,
@@ -2175,5 +2202,5 @@
   "timezone": "",
   "title": "AESO - Status",
   "uid": "LATiptyGk",
-  "version": 38
+  "version": 40
 }
