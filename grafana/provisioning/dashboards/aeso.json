@@ -829,13 +829,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(coal_tng_stats) + sum(wind_tng_stats) + sum(gas_tng_stats) + sum(hydro_tng_stats) + sum(other_tng_stats)",
+          "expr": "sum(coal_tng_stats >= 0) + sum(wind_tng_stats >= 0) + sum(gas_tng_stats >= 0) + sum(hydro_tng_stats >= 0) + sum(other_tng_stats >= 0)",
           "interval": "120s",
           "legendFormat": "Net Generation",
           "refId": "A"
         },
         {
-          "expr": "sum(coal_mc_stats) + sum(wind_mc_stats) + sum(gas_mc_stats) + sum(hydro_mc_stats) + sum(other_mc_stats)",
+          "expr": "sum(coal_mc_stats >= 0) + sum(wind_mc_stats >= 0) + sum(gas_mc_stats >= 0) + sum(hydro_mc_stats >= 0) + sum(other_mc_stats >= 0)",
           "hide": true,
           "interval": "",
           "legendFormat": "Max Capacity",
@@ -1032,13 +1032,13 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(coal_tng_stats)",
+          "expr": "sum(coal_tng_stats >= 0)",
           "interval": "120s",
           "legendFormat": "Coal",
           "refId": "A"
         },
         {
-          "expr": "sum(wind_tng_stats)",
+          "expr": "sum(wind_tng_stats >= 0)",
           "hide": false,
           "interval": "120s",
           "legendFormat": "Wind",
@@ -1052,14 +1052,14 @@
           "refId": "C"
         },
         {
-          "expr": "sum(hydro_tng_stats)",
+          "expr": "sum(hydro_tng_stats >= 0)",
           "hide": false,
           "interval": "",
           "legendFormat": "Hydro",
           "refId": "E"
         },
         {
-          "expr": "sum(other_tng_stats)",
+          "expr": "sum(other_tng_stats >= 0)",
           "hide": false,
           "interval": "120s",
           "legendFormat": "Biomass/Other",
@@ -2175,5 +2175,5 @@
   "timezone": "",
   "title": "AESO - Status",
   "uid": "LATiptyGk",
-  "version": 37
+  "version": 38
 }
