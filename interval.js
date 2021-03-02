@@ -348,10 +348,10 @@ function callPoolPriceEveryNSeconds(n) {
 }
 
 getCurrentPoolPrice();
-// callPoolPriceEveryNSeconds(300);
+callPoolPriceEveryNSeconds(300);
 
 getCurrentStats();
-// callStatsScraperEveryNSeconds(120);
+callStatsScraperEveryNSeconds(120);
 
 
 const server = http.createServer(async (req, res) => {
