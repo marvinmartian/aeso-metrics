@@ -265,10 +265,19 @@ async function getCurrentStats() {
 
         if ( row_data.length > 1 && $(row_data[0]).text() != "ASSET" ) {
           // console.log(i,active,row_name);
-          gas_mc_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[1]).text()));
-          gas_tng_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[2]).text()));
-          gas_dnc_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[3]).text()));
-        }
+          let asset_name = $(row_data[0]).text();
+          let mc_stat  = parseInt($(row_data[1]).text()); 
+          let tng_stat = parseInt($(row_data[2]).text());
+          let dnr_stat = parseInt($(row_data[3]).text());
+          if ( isNaN(mc_stat) || isNaN(tng_stat) || isNaN(dnr_stat) ) { 
+            console.log("ERROR",asset_name,mc_stat,tng_stat,dnr_stat);
+          } else { 
+            gas_mc_stats.set({asset: asset_name, type: `${active}` },mc_stat);
+            gas_tng_stats.set({asset: asset_name, type: `${active}` },tng_stat);
+            gas_dnc_stats.set({asset: asset_name, type: `${active}` },dnr_stat);
+          }
+          
+        } 
         
 
         // if ( i >= 3 && i <= 31 ) {
