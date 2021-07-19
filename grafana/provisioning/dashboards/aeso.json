@@ -16,18 +16,12 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 7,
+  "id": 1,
   "links": [],
   "panels": [
     {
       "datasource": null,
       "description": "",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {}
-        },
-        "overrides": []
-      },
       "gridPos": {
         "h": 2,
         "w": 24,
@@ -39,7 +33,7 @@
         "content": "This dashboard is using data provided from: [Alberta Electric System Operator](http://ets.aeso.ca/ets_web/ip/Market/Reports/CSDReportServlet)\n         ",
         "mode": "markdown"
       },
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "timeFrom": null,
       "timeShift": null,
       "title": "Disclaimer / Credit",
@@ -53,7 +47,6 @@
           "color": {
             "mode": "thresholds"
           },
-          "custom": {},
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -94,7 +87,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
           "expr": "poolprice",
@@ -115,15 +108,14 @@
             "fixedColor": "green",
             "mode": "fixed"
           },
-          "custom": {},
           "mappings": [
             {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1,
-              "value": ""
+              "options": {
+                "": {
+                  "text": ""
+                }
+              },
+              "type": "value"
             }
           ],
           "thresholds": {
@@ -161,10 +153,11 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
-          "expr": "sum(coal_tng_stats >= 0)+sum(gas_tng_stats >= 0)+sum(hydro_tng_stats >= 0)+sum(other_tng_stats >= 0)+sum(wind_tng_stats >= 0)",
+          "exemplar": true,
+          "expr": "sum(tng_stats)",
           "format": "time_series",
           "instant": true,
           "interval": "120s",
@@ -183,15 +176,14 @@
             "fixedColor": "green",
             "mode": "fixed"
           },
-          "custom": {},
           "mappings": [
             {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1,
-              "value": ""
+              "options": {
+                "": {
+                  "text": ""
+                }
+              },
+              "type": "value"
             }
           ],
           "thresholds": {
@@ -229,7 +221,7 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
           "exemplar": false,
@@ -252,15 +244,14 @@
             "fixedColor": "green",
             "mode": "fixed"
           },
-          "custom": {},
           "mappings": [
             {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1,
-              "value": ""
+              "options": {
+                "": {
+                  "text": ""
+                }
+              },
+              "type": "value"
             }
           ],
           "thresholds": {
@@ -298,10 +289,11 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
-          "expr": "sum(coal_tng_stats >= 0)+sum(gas_tng_stats >= 0)+sum(hydro_tng_stats >= 0)+sum(other_tng_stats >= 0)+sum(wind_tng_stats >= 0)+sum(-interchange{location=\"TOTAL\"})",
+          "exemplar": true,
+          "expr": "sum(tng_stats >= 0)-sum(interchange{location=\"TOTAL\"})",
           "format": "time_series",
           "instant": true,
           "interval": "120s",
@@ -320,17 +312,18 @@
             "fixedColor": "green",
             "mode": "continuous-RdYlGr"
           },
-          "custom": {},
           "mappings": [
             {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1,
-              "value": ""
+              "options": {
+                "": {
+                  "text": ""
+                }
+              },
+              "type": "value"
             }
           ],
+          "max": 1,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -366,10 +359,11 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
-          "expr": "generation_tng{group=\"TOTAL\"}/generation_mc{group=\"TOTAL\"}",
+          "exemplar": true,
+          "expr": "sum(tng_stats >= 0)/sum(mc_stats >= 0)",
           "format": "time_series",
           "instant": true,
           "interval": "120s",
@@ -388,8 +382,9 @@
             "fixedColor": "green",
             "mode": "continuous-GrYlRd"
           },
-          "custom": {},
           "mappings": [],
+          "max": 1,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -425,10 +420,11 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
-          "expr": "sum(coal_tng_stats)/sum(coal_mc_stats)",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"coal\"})/sum(mc_stats{type=\"coal\"})",
           "format": "time_series",
           "instant": false,
           "interval": "120s",
@@ -447,17 +443,18 @@
             "fixedColor": "green",
             "mode": "continuous-GrYlRd"
           },
-          "custom": {},
           "mappings": [
             {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1,
-              "value": ""
+              "options": {
+                "": {
+                  "text": ""
+                }
+              },
+              "type": "value"
             }
           ],
+          "max": 1,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -493,10 +490,11 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
-          "expr": "sum(gas_tng_stats >= 0)/sum(gas_mc_stats >= 0)",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"gas\"} >= 0)/sum(mc_stats{type=\"gas\"} >= 0)",
           "format": "time_series",
           "instant": false,
           "interval": "120s",
@@ -516,17 +514,18 @@
             "fixedColor": "green",
             "mode": "continuous-GrYlRd"
           },
-          "custom": {},
           "mappings": [
             {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1,
-              "value": ""
+              "options": {
+                "": {
+                  "text": ""
+                }
+              },
+              "type": "value"
             }
           ],
+          "max": 1,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -562,10 +561,11 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
-          "expr": "sum(wind_tng_stats)/sum(wind_mc_stats)",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"wind\"})/sum(mc_stats{type=\"wind\"})",
           "format": "time_series",
           "instant": false,
           "interval": "120s",
@@ -584,17 +584,18 @@
             "fixedColor": "green",
             "mode": "continuous-GrYlRd"
           },
-          "custom": {},
           "mappings": [
             {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1,
-              "value": ""
+              "options": {
+                "": {
+                  "text": ""
+                }
+              },
+              "type": "value"
             }
           ],
+          "max": 1,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -630,10 +631,11 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
-          "expr": "sum(hydro_tng_stats)/sum(hydro_mc_stats)",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"hydro\"})/sum(mc_stats{type=\"hydro\"})",
           "format": "time_series",
           "instant": false,
           "interval": "120s",
@@ -652,17 +654,18 @@
             "fixedColor": "green",
             "mode": "continuous-GrYlRd"
           },
-          "custom": {},
           "mappings": [
             {
-              "from": "",
-              "id": 1,
-              "text": "",
-              "to": "",
-              "type": 1,
-              "value": ""
+              "options": {
+                "": {
+                  "text": ""
+                }
+              },
+              "type": "value"
             }
           ],
+          "max": 1,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -698,10 +701,11 @@
         "text": {},
         "textMode": "auto"
       },
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
-          "expr": "sum(other_tng_stats)/sum(other_mc_stats)",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"biomass_and_other\"})/sum(mc_stats{type=\"biomass_and_other\"})",
           "format": "time_series",
           "instant": false,
           "interval": "120s",
@@ -720,8 +724,9 @@
           "color": {
             "mode": "thresholds"
           },
-          "custom": {},
           "mappings": [],
+          "max": 1,
+          "min": 0,
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -760,41 +765,54 @@
         "showThresholdMarkers": true,
         "text": {}
       },
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "targets": [
         {
-          "expr": "sum(coal_tng_stats>=0) / sum(generation_tng{group=\"TOTAL\"})",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"coal\"}>=0) / sum(tng_stats)",
           "interval": "2m",
           "legendFormat": "Coal",
           "refId": "A"
         },
         {
-          "expr": "sum(gas_tng_stats>=0) / sum(generation_tng{group=\"TOTAL\"})",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"gas\"}>=0) / sum(tng_stats)",
           "hide": false,
           "interval": "2m",
           "legendFormat": "Gas",
           "refId": "B"
         },
         {
-          "expr": "sum(wind_tng_stats>=0) / sum(generation_tng{group=\"TOTAL\"})",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"wind\"}>=0) / sum(tng_stats)",
           "hide": false,
           "interval": "2m",
           "legendFormat": "Wind",
           "refId": "C"
         },
         {
-          "expr": "sum(hydro_tng_stats>=0) / sum(generation_tng{group=\"TOTAL\"})",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"hydro\"}>=0) / sum(tng_stats)",
           "hide": false,
           "interval": "2m",
           "legendFormat": "Hydro",
           "refId": "D"
         },
         {
-          "expr": "sum(other_tng_stats>=0) / sum(generation_tng{group=\"TOTAL\"})",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"solar\"}>=0) / sum(tng_stats)",
+          "hide": false,
+          "interval": "2m",
+          "legendFormat": "Solar",
+          "refId": "E"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"biomass_and_other\"}>=0) / sum(tng_stats)",
           "hide": false,
           "interval": "2m",
           "legendFormat": "Other/Biomass",
-          "refId": "E"
+          "refId": "F"
         }
       ],
       "timeFrom": null,
@@ -810,7 +828,6 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "currencyUSD"
         },
         "overrides": []
@@ -841,7 +858,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -908,7 +925,6 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "megwatt"
         },
         "overrides": []
@@ -939,7 +955,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -949,12 +965,14 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(coal_tng_stats >= 0) + sum(wind_tng_stats >= 0) + sum(gas_tng_stats >= 0) + sum(hydro_tng_stats >= 0) + sum(other_tng_stats >= 0)",
+          "exemplar": true,
+          "expr": "sum(tng_stats >=0)",
           "interval": "120s",
           "legendFormat": "Net Generation",
           "refId": "A"
         },
         {
+          "exemplar": true,
           "expr": "sum(coal_mc_stats >= 0) + sum(wind_mc_stats >= 0) + sum(gas_mc_stats >= 0) + sum(hydro_mc_stats >= 0) + sum(other_mc_stats >= 0)",
           "hide": true,
           "interval": "",
@@ -1013,7 +1031,6 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "megwatt"
         },
         "overrides": []
@@ -1044,7 +1061,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1111,7 +1128,6 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "megwatt"
         },
         "overrides": []
@@ -1142,7 +1158,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1152,38 +1168,59 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(coal_tng_stats >= 0)",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"coal\"} > 0)",
           "interval": "120s",
           "legendFormat": "Coal",
           "refId": "A"
         },
         {
-          "expr": "sum(wind_tng_stats >= 0)",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"wind\"} > 0)",
           "hide": false,
           "interval": "120s",
           "legendFormat": "Wind",
           "refId": "B"
         },
         {
-          "expr": "sum(gas_tng_stats >= 0)",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"gas\"} > 0)",
           "hide": false,
           "interval": "120s",
           "legendFormat": "Gas",
           "refId": "C"
         },
         {
-          "expr": "sum(hydro_tng_stats >= 0)",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"hydro\"} > 0)",
           "hide": false,
           "interval": "",
           "legendFormat": "Hydro",
           "refId": "E"
         },
         {
-          "expr": "sum(other_tng_stats >= 0)",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"biomass_and_other\"} > 0)",
           "hide": false,
           "interval": "120s",
           "legendFormat": "Biomass/Other",
           "refId": "D"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"solar\"} > 0)",
+          "hide": false,
+          "interval": "120s",
+          "legendFormat": "Solar",
+          "refId": "F"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"dual_fuel\"} > 0)",
+          "hide": false,
+          "interval": "120s",
+          "legendFormat": "Dual Fuel",
+          "refId": "G"
         }
       ],
       "thresholds": [],
@@ -1252,7 +1289,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "megwatt"
         },
         "overrides": []
@@ -1283,7 +1319,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1293,7 +1329,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "hydro_tng_stats > 0",
+          "exemplar": true,
+          "expr": "tng_stats{type=\"hydro\"} > 0",
           "interval": "120s",
           "legendFormat": "{{asset}}",
           "refId": "A"
@@ -1351,7 +1388,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "percentunit"
         },
         "overrides": []
@@ -1382,7 +1418,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1392,7 +1428,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(hydro_tng_stats/hydro_mc_stats) > 0",
+          "exemplar": true,
+          "expr": "(tng_stats{type=\"hydro\"}/mc_stats{type=\"hydro\"}) > 0",
           "interval": "120s",
           "legendFormat": "{{asset}}",
           "refId": "A"
@@ -1463,7 +1500,6 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "megwatt"
         },
         "overrides": []
@@ -1494,7 +1530,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1504,7 +1540,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "coal_tng_stats > 0",
+          "exemplar": true,
+          "expr": "tng_stats{type=\"coal\"} > 0",
           "interval": "120s",
           "legendFormat": "{{asset}}",
           "refId": "A"
@@ -1561,7 +1598,6 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "percentunit"
         },
         "overrides": []
@@ -1592,7 +1628,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1602,7 +1638,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(coal_tng_stats/coal_mc_stats) > 0",
+          "exemplar": true,
+          "expr": "(tng_stats{type=\"coal\"}/mc_stats{type=\"coal\"}) > 0",
           "interval": "120s",
           "legendFormat": "{{asset}}",
           "refId": "A"
@@ -1673,7 +1710,6 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "megwatt"
         },
         "overrides": []
@@ -1704,7 +1740,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1714,7 +1750,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "wind_tng_stats > 0",
+          "exemplar": true,
+          "expr": "tng_stats{type=\"wind\"} > 0",
           "interval": "120s",
           "legendFormat": "{{asset}}",
           "refId": "A"
@@ -1771,7 +1808,6 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "percentunit"
         },
         "overrides": []
@@ -1802,7 +1838,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1812,7 +1848,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(wind_tng_stats/wind_mc_stats) > 0",
+          "exemplar": true,
+          "expr": "(tng_stats{type=\"wind\"}/mc_stats{type=\"wind\"}) > 0",
           "interval": "120s",
           "legendFormat": "{{asset}}",
           "refId": "A"
@@ -1883,7 +1920,6 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "megwatt"
         },
         "overrides": []
@@ -1914,7 +1950,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -1924,7 +1960,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "gas_tng_stats{type=\"Simple\"} > 0",
+          "exemplar": true,
+          "expr": "tng_stats{type=\"gas\",category=\"Simple\"} > 0",
           "interval": "120s",
           "legendFormat": "{{asset}}",
           "refId": "A"
@@ -1982,7 +2019,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "megwatt"
         },
         "overrides": []
@@ -2013,7 +2049,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2023,7 +2059,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "gas_tng_stats{type=\"Cogeneration\"} > 0",
+          "exemplar": true,
+          "expr": "tng_stats{type=\"gas\",category=\"Cogeneration\"} > 0",
           "interval": "120s",
           "legendFormat": "{{asset}}",
           "refId": "A"
@@ -2081,7 +2118,6 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "megwatt"
         },
         "overrides": []
@@ -2112,7 +2148,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2122,7 +2158,8 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "gas_tng_stats{type=\"Combined\"} >= 0",
+          "exemplar": true,
+          "expr": "tng_stats{type=\"gas\",category=\"Combined\"} > 0",
           "interval": "120s",
           "legendFormat": "{{asset}}",
           "refId": "A"
@@ -2179,7 +2216,6 @@
       "datasource": null,
       "fieldConfig": {
         "defaults": {
-          "custom": {},
           "unit": "percentunit"
         },
         "overrides": []
@@ -2210,7 +2246,7 @@
         "alertThreshold": true
       },
       "percentage": false,
-      "pluginVersion": "7.4.2",
+      "pluginVersion": "8.0.5",
       "pointradius": 2,
       "points": false,
       "renderer": "flot",
@@ -2220,20 +2256,23 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(gas_tng_stats{type=\"Simple\"})/sum(gas_mc_stats{type=\"Simple\"})",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"gas\",category=\"Simple\"})/sum(mc_stats{type=\"gas\",category=\"Simple\"})",
           "interval": "120s",
           "legendFormat": "Simple Cycle",
           "refId": "A"
         },
         {
-          "expr": "sum(gas_tng_stats{type=\"Cogeneration\"} >= 0) / sum(gas_mc_stats{type=\"Cogeneration\"} >= 0)",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"gas\",category=\"Cogeneration\"} >= 0) / sum(mc_stats{type=\"gas\",category=\"Cogeneration\"} >= 0)",
           "hide": false,
           "interval": "120s",
           "legendFormat": "Cogeneration Cycle",
           "refId": "B"
         },
         {
-          "expr": "sum(gas_tng_stats{type=\"Combined\"})/sum(gas_mc_stats{type=\"Combined\"})",
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"gas\",category=\"Combined\"})/sum(mc_stats{type=\"gas\",category=\"Combined\"})",
           "hide": false,
           "interval": "120s",
           "legendFormat": "Combined Cycle",
@@ -2285,7 +2324,7 @@
     }
   ],
   "refresh": "1m",
-  "schemaVersion": 27,
+  "schemaVersion": 30,
   "style": "dark",
   "tags": [],
   "templating": {
@@ -2299,5 +2338,5 @@
   "timezone": "",
   "title": "AESO - Status",
   "uid": "LATiptyGk",
-  "version": 52
+  "version": 10
 }

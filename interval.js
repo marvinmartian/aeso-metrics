@@ -7,6 +7,7 @@ const url = require('url')
 
 const client = require('prom-client');
 const { exit } = require("process");
+const { table } = require("console");
 const collectDefaultMetrics = client.collectDefaultMetrics;
 const Registry = client.Registry;
 const register = new Registry();
@@ -55,118 +56,65 @@ register.registerMetric(interchange_stats);
 
 // ##############
 
-const coal_mc_stats = new client.Gauge({
-    name: 'coal_mc_stats',
-    help: 'Coal Maximum Capacity',
-    labelNames: ['asset',]
-  });
-register.registerMetric(coal_mc_stats);
+const mc_stats = new client.Gauge({
+  name: 'mc_stats',
+  help: 'Maximum Capacity',
+  labelNames: ['type','category','asset',]
+});
+register.registerMetric(mc_stats);
 
-const coal_tng_stats = new client.Gauge({
-    name: 'coal_tng_stats',
-    help: 'Coal Total Net Generation',
-    labelNames: ['asset']
-  });
-register.registerMetric(coal_tng_stats);
+const tng_stats = new client.Gauge({
+  name: 'tng_stats',
+  help: 'Total Net Generation',
+  labelNames: ['type','category','asset',]
+});
+register.registerMetric(tng_stats);
 
-const coal_dnc_stats = new client.Gauge({
-    name: 'coal_dnc_stats',
-    help: 'Coal Dispatched (and Accepted) Contingency Reserve',
-    labelNames: ['asset']
-  });
-register.registerMetric(coal_dnc_stats);
+const dcr_stats = new client.Gauge({
+  name: 'dcr_stats',
+  help: 'Dispatched Contingency Reserve',
+  labelNames: ['type','category','asset',]
+});
+register.registerMetric(dcr_stats);
 
-// ##############
+function captureInterchangeMetrics(stat_object) {
+  // console.log(stat_object);
+  for ( key in stat_object) {
+    let asset_name = key;
+    let metric_value = parseInt(stat_object[key]);
+    if ( ! isNaN(metric_value) ) { 
+      interchange_stats.set({location: asset_name },metric_value);
+    }
+  }
+  
+}
 
-const gas_mc_stats = new client.Gauge({
-    name: 'gas_mc_stats',
-    help: 'Gas Maximum Capacity',
-    labelNames: ['asset', 'type']
-  });
-register.registerMetric(gas_mc_stats);
+function captureMetrics(stat_object,asset_type,category) { 
+  // console.log(stat_object);
+  for ( key in stat_object) {
+    let asset_name = key;
+    let asset_category = category || "";
+    let mc_metric_value = parseInt(stat_object[key]["MC"]);
+    let tng_metric_value = parseInt(stat_object[key]["TNG"]);
+    let dcr_metric_value = parseInt(stat_object[key]["DCR"]);
+    
+    if ( !isNaN(mc_metric_value) ) {
+      mc_stats.set({asset: asset_name, type: asset_type, category: asset_category },mc_metric_value);
+    }
+    if ( !isNaN(tng_metric_value) ) {
+      tng_stats.set({asset: asset_name, type: asset_type, category: asset_category },tng_metric_value);
+    }
+    if ( !isNaN(dcr_metric_value) ) {
+      dcr_stats.set({asset: asset_name, type: asset_type, category: asset_category },dcr_metric_value);
+    }
+  }
+  // metric.set({asset: asset_name, type: asset_type, category: category },mc_stat);
+}
 
-const gas_tng_stats = new client.Gauge({
-    name: 'gas_tng_stats',
-    help: 'Gas Total Net Generation',
-    labelNames: ['asset', 'type']
-  });
-register.registerMetric(gas_tng_stats);
-
-const gas_dnc_stats = new client.Gauge({
-    name: 'gas_dnc_stats',
-    help: 'Gas Dispatched (and Accepted) Contingency Reserve',
-    labelNames: ['asset', 'type']
-  });
-register.registerMetric(gas_dnc_stats);
-
-// ##############
-
-const hydro_mc_stats = new client.Gauge({
-    name: 'hydro_mc_stats',
-    help: 'Hydro Maximum Capacity',
-    labelNames: ['asset',]
-  });
-register.registerMetric(hydro_mc_stats);
-
-const hydro_tng_stats = new client.Gauge({
-    name: 'hydro_tng_stats',
-    help: 'Hydro Total Net Generation',
-    labelNames: ['asset']
-  });
-register.registerMetric(hydro_tng_stats);
-
-const hydro_dnc_stats = new client.Gauge({
-    name: 'hydro_dnc_stats',
-    help: 'Hydro Dispatched (and Accepted) Contingency Reserve',
-    labelNames: ['asset']
-  });
-register.registerMetric(hydro_dnc_stats);
-
-// ##############
-
-const wind_mc_stats = new client.Gauge({
-    name: 'wind_mc_stats',
-    help: 'Wind Maximum Capacity',
-    labelNames: ['asset',]
-  });
-register.registerMetric(wind_mc_stats);
-
-const wind_tng_stats = new client.Gauge({
-    name: 'wind_tng_stats',
-    help: 'Wind Total Net Generation',
-    labelNames: ['asset']
-  });
-register.registerMetric(wind_tng_stats);
-
-const wind_dnc_stats = new client.Gauge({
-    name: 'wind_dnc_stats',
-    help: 'Wind Dispatched (and Accepted) Contingency Reserve',
-    labelNames: ['asset']
-  });
-register.registerMetric(wind_dnc_stats);
-
-// ##############
-
-const other_mc_stats = new client.Gauge({
-    name: 'other_mc_stats',
-    help: 'Biomass/Other Maximum Capacity',
-    labelNames: ['asset',]
-  });
-register.registerMetric(other_mc_stats);
-
-const other_tng_stats = new client.Gauge({
-    name: 'other_tng_stats',
-    help: 'Biomass/Other Total Net Generation',
-    labelNames: ['asset']
-  });
-register.registerMetric(other_tng_stats);
-
-const other_dnc_stats = new client.Gauge({
-    name: 'other_dnc_stats',
-    help: 'Biomass/Other Dispatched (and Accepted) Contingency Reserve',
-    labelNames: ['asset']
-  });
-register.registerMetric(other_dnc_stats);
+// Helper Function(s)
+function isUpperCase(str) {
+  return str === str.toUpperCase();
+}
 
 async function getCurrentPoolPrice() {
   let response = await axios( { url: "https://www.aeso.ca/ets/ets.json", 
@@ -191,59 +139,61 @@ async function getCurrentStats() {
     var $ = cheerio.load(data);
     var aeso_stats_array = {};
 
-    var aeso_summary_table = $('body > table:nth-child(9) > tbody > tr > td:nth-child(1) > table > tbody').children();
-    aeso_stats_array.summary = {};
-    aeso_summary_table.each(function (i, elem) {
-        if ( i > 0) {
-            let row_data = $(this).children('td').toArray()
-            aeso_stats_array.summary[$(row_data[0]).text()] = $(row_data[1]).text()
+    function summary_table_parser(table_to_parse) {
+      // console.log('SUMMARY')
+      let stats_array = {}
+
+      table_to_parse.each(function (i, elem) {
+        if ( i > 1 ) {
+          let row_data = $(this).children('td').toArray()
+          // console.log( $(row_data[0]).text().replace(/[^\w\s]/gi, '').replace(/ /g,"_"), parseInt($(row_data[1]).text()) );
+          stats_array[$(row_data[0]).text().replace(/[^\w\s]/gi, '').replace(/ /g,"_")] = $(row_data[1]).text()
         }
-    });
 
-    var aeso_generation_table = $('body > table:nth-child(9) > tbody > tr > td:nth-child(2) > table > tbody').children();
-    aeso_stats_array.generation = {};
-    aeso_generation_table.each(function (i, elem) {
-        if ( i > 1) {
-            let row_data = $(this).children('td').toArray()
-            generation_mc_stats.set({group: $(row_data[0]).text() },parseInt($(row_data[1]).text()));
-            generation_tng_stats.set({group: $(row_data[0]).text() },parseInt($(row_data[2]).text()));
-            generation_dnc_stats.set({group: $(row_data[0]).text() },parseInt($(row_data[3]).text()));            
-            aeso_stats_array.generation[$(row_data[0]).text()] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
+      });
+      // console.log(stats_array);
+      return stats_array;
+    }
+
+    // ###### Parse the generation table type
+    function generation_table_parser(table_to_parse) {
+      // console.log('generation')
+      let stats_array = {}
+
+      table_to_parse.each(function (i, elem) {
+        if ( i > 1 ) {
+          let row_data = $(this).children('td').toArray()
+          stats_array[$(row_data[0]).text().replace(/[^\w\s]/gi, '').replace(/ /g,"_")] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
+          // console.log( $(row_data[0]).text().replace(/[^\w\s]/gi, '').replace(/ /g,"_"), parseInt($(row_data[1]).text()) );
         }
-    });
 
+      });
 
+      return stats_array;
+    }
 
-    var aeso_interchange_table = $('body > table:nth-child(9) > tbody > tr > td:nth-child(3) > table > tbody').children();
-    aeso_stats_array.interchange = {};
-    aeso_interchange_table.each(function (i, elem) {
-        if ( i > 1) {
-            let row_data = $(this).children('td').toArray()
-            interchange_stats.set({location: $(row_data[0]).text() },parseInt($(row_data[1]).text()));
-            aeso_stats_array.interchange[$(row_data[0]).text()] = $(row_data[1]).text()
+    // ###### Parse the interchange table type
+    function interchange_table_parser(table_to_parse) {
+      // console.log('interchange')
+      let stats_array = {}
+
+      table_to_parse.each(function (i, elem) {
+        if ( i > 1 ) {
+          let row_data = $(this).children('td').toArray()
+          // console.log( $(row_data[0]).text().replace(/[^\w\s]/gi, '').replace(/ /g,"_"), parseInt($(row_data[1]).text()) );
+          stats_array[$(row_data[0]).text().replace(/[^\w\s]/gi, '').replace(/ /g,"_")] = $(row_data[1]).text()
         }
-    });
 
+      });
+      // console.log(stats_array);
+      return stats_array;
+    }
 
-
-    var aeso_coal_table = $('body > table:nth-child(10) > tbody > tr > td:nth-child(1) > table > tbody > tr > td:nth-child(1) > table > tbody').children();
-    aeso_stats_array.coal = {};
-    aeso_coal_table.each(function (i, elem) {
-        if ( i > 1) {
-            let row_data = $(this).children('td').toArray()
-            coal_mc_stats.set({asset: $(row_data[0]).text() },parseInt($(row_data[1]).text()));
-            coal_tng_stats.set({asset: $(row_data[0]).text() },parseInt($(row_data[2]).text()));
-            coal_dnc_stats.set({asset: $(row_data[0]).text() },parseInt($(row_data[3]).text()));      
-            aeso_stats_array.coal[$(row_data[0]).text()] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
-        }
-    });
-
-
-    var aeso_gas_table = $('body > table:nth-child(10) > tbody > tr > td:nth-child(1) > table > tbody > tr > td:nth-child(2) > table > tbody').children();
-    aeso_stats_array.gas = { 'Simple': {}, 'Cogeneration': {}, 'Combined': {} };
-    var active = 'simple';
-
-    aeso_gas_table.each(function (i, elem) {
+    // ###### Parse the gas table type
+    function gas_table_parser(table_to_parse) {
+      // console.log('gas')
+      let stats_array = { 'Simple': {}, 'Cogeneration': {}, 'Combined': {} };
+      table_to_parse.each(function (i, elem) {
         
         let row_data = $(this).children('td').toArray()
         // let row_name = $(row_data[0]).text().replace(/[^a-zA-Z0-9 ]/g, "").replace(/ /g,"_");
@@ -272,80 +222,72 @@ async function getCurrentStats() {
           if ( isNaN(mc_stat) || isNaN(tng_stat) || isNaN(dnr_stat) ) { 
             console.log("ERROR",asset_name,mc_stat,tng_stat,dnr_stat);
           } else { 
-            gas_mc_stats.set({asset: asset_name, type: `${active}` },mc_stat);
-            gas_tng_stats.set({asset: asset_name, type: `${active}` },tng_stat);
-            gas_dnc_stats.set({asset: asset_name, type: `${active}` },dnr_stat);
+            stats_array[active][$(row_data[0]).text().replace(/[^\w\s]/gi, '').replace(/ /g,"_")] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
+            // gas_tng_stats.set({asset: asset_name, type: `${active}` },tng_stat);
+            // gas_dnc_stats.set({asset: asset_name, type: `${active}` },dnr_stat);
           }
           
         } 
+      
+      });
+      // console.log(stats_array);
+      return stats_array;
+    }
+
+    // ###### Parse the default table type
+    function default_table_parser(table_to_parse) {
+      // console.log('default','-',electricity_type)
+      let stats_array = {}
+
+      table_to_parse.each(function (i, elem) {
+        if ( i > 1 ) {
+          let row_data = $(this).children('td').toArray()
+          // console.log( $(row_data[0]).text(),parseInt($(row_data[1]).text()),parseInt($(row_data[2]).text()),parseInt($(row_data[3]).text()) );
+          stats_array[$(row_data[0]).text().replace(/[^\w\s]/gi, '').replace(/ /g,"_")] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
+        }
         
+      });
+      // console.log(stats_array);
+      return stats_array;
+    }
 
-        // if ( i >= 3 && i <= 31 ) {
-        //     aeso_stats_array.gas.Simple[`${row_name}`] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
-        //     // console.log(aeso_stats_array.gas[`${active}`][`${row_name}`]);
-        //     gas_mc_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[1]).text()));
-        //     gas_tng_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[2]).text()));
-        //     gas_dnc_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[3]).text()));
-        // }
+    var the_tables = $('table [border="1"]')
+    the_tables.each(function (i, elem) {
+      var table_title = $(this).find('tr').first().text().trim().toLowerCase().trim().replace(/ /g,"_");
+      // console.log(table_title);
 
-        // if ( i >= 35 && i <= 71 ) {
-        //     aeso_stats_array.gas.Cogeneration[`${row_name}`] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
-        //     gas_mc_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[1]).text()));
-        //     gas_tng_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[2]).text()));
-        //     gas_dnc_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[3]).text()));
-        // }
+      var table_data = $(this).find('tr');
+      switch (table_title.toLowerCase()) {
+        case 'summary':
+          aeso_stats_array[table_title] = summary_table_parser(table_data)
+          break;
+        case 'generation':
+          aeso_stats_array[table_title] = generation_table_parser(table_data)
+          break;
+        case 'interchange':
+          aeso_stats_array[table_title] = interchange_table_parser(table_data)
+          captureInterchangeMetrics(aeso_stats_array[table_title]);
+          break;
+        case 'gas':
+          aeso_stats_array[table_title] = gas_table_parser(table_data)
+          // console.log(aeso_stats_array[table_title]);
+          captureMetrics(aeso_stats_array[table_title]["Combined"],table_title,"Combined");
+          captureMetrics(aeso_stats_array[table_title]["Cogeneration"],table_title,"Cogeneration");
+          captureMetrics(aeso_stats_array[table_title]["Simple"],table_title,"Simple");
+          break; 
+        default:
+          aeso_stats_array[table_title] = default_table_parser(table_data,table_title)
+          captureMetrics(aeso_stats_array[table_title],table_title);
+          break;
+      }
 
-        // if ( i >= 74 && i <= 79 ) {
-        //     aeso_stats_array.gas.Combined[`${row_name}`] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
-        //     gas_mc_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[1]).text()));
-        //     gas_tng_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[2]).text()));
-        //     gas_dnc_stats.set({asset: $(row_data[0]).text(), type: `${active}` },parseInt($(row_data[3]).text()));
-        // }
-
+      
+      // console.log('--------------');
 
     });
-
-
-    var aeso_hydro_table = $('body > table:nth-child(10) > tbody > tr > td:nth-child(2) > table > tbody > tr:nth-child(1) > td > table > tbody').children();
-    aeso_stats_array.hydro = {};
-    aeso_hydro_table.each(function (i, elem) {
-        if ( i > 1) {
-            let row_data = $(this).children('td').toArray()
-            hydro_mc_stats.set({asset: $(row_data[0]).text() },parseInt($(row_data[1]).text()));
-            hydro_tng_stats.set({asset: $(row_data[0]).text() },parseInt($(row_data[2]).text()));
-            hydro_dnc_stats.set({asset: $(row_data[0]).text() },parseInt($(row_data[3]).text()));  
-            aeso_stats_array.hydro[$(row_data[0]).text()] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
-        }
-    });
-
-
-    var aeso_wind_table = $('body > table:nth-child(10) > tbody > tr > td:nth-child(2) > table > tbody > tr:nth-child(2) > td > table > tbody').children();
-    aeso_stats_array.wind = {};
-    aeso_wind_table.each(function (i, elem) {
-        if ( i > 1) {
-            let row_data = $(this).children('td').toArray()
-            wind_mc_stats.set({asset: $(row_data[0]).text() },parseInt($(row_data[1]).text()));
-            wind_tng_stats.set({asset: $(row_data[0]).text() },parseInt($(row_data[2]).text()));
-            wind_dnc_stats.set({asset: $(row_data[0]).text() },parseInt($(row_data[3]).text())); 
-            aeso_stats_array.wind[$(row_data[0]).text()] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
-        }
-    });
-
-    
-    var aeso_biomass_table = $('body > table:nth-child(10) > tbody > tr > td:nth-child(2) > table > tbody > tr:nth-child(3) > td > table > tbody').children();
-    aeso_stats_array.other = {};
-    aeso_biomass_table.each(function (i, elem) {
-        if ( i > 1) {
-            let row_data = $(this).children('td').toArray()
-            other_mc_stats.set({asset: $(row_data[0]).text() },parseInt($(row_data[1]).text()));
-            other_tng_stats.set({asset: $(row_data[0]).text() },parseInt($(row_data[2]).text()));
-            other_dnc_stats.set({asset: $(row_data[0]).text() },parseInt($(row_data[3]).text())); 
-            aeso_stats_array.other[$(row_data[0]).text()] = { 'MC': $(row_data[1]).text(), 'TNG': $(row_data[2]).text(), 'DCR': $(row_data[3]).text() }
-        }
-    });
-
-    // console.log('---requested---');
-    // console.log(util.inspect(aeso_stats_array, {showHidden: false, depth: null}))
+    // console.log(aeso_stats_array)
+    console.log('----------------------');
+    // process.exit();
 } 
 
 function callStatsScraperEveryNSeconds(n) {
