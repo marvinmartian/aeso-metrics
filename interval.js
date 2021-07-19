@@ -302,7 +302,7 @@ getCurrentPoolPrice();
 callPoolPriceEveryNSeconds(300);
 
 getCurrentStats();
-callStatsScraperEveryNSeconds(120);
+callStatsScraperEveryNSeconds(60);
 
 
 const server = http.createServer(async (req, res) => {
