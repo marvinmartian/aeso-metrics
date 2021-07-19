@@ -1443,7 +1443,7 @@
         "y": 50
       },
       "hiddenSeries": false,
-      "id": 21,
+      "id": 48,
       "legend": {
         "avg": false,
         "current": false,
@@ -1471,17 +1471,33 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "tng_stats{type=\"solar\"} > 0",
+          "expr": "sum(mc_stats{type=\"solar\"} >= 0)",
+          "hide": false,
           "interval": "60s",
-          "legendFormat": "{{asset}}",
+          "legendFormat": "Max Capacity",
           "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"solar\"} >= 0)",
+          "interval": "60s",
+          "legendFormat": "Generated",
+          "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(dcr_stats{type=\"solar\"} >= 0)",
+          "hide": false,
+          "interval": "60s",
+          "legendFormat": "Dispatched Contingency Reserve",
+          "refId": "C"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Solar- Total Net Generated",
+      "title": "Solar- Overview",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1542,7 +1558,7 @@
         "y": 58
       },
       "hiddenSeries": false,
-      "id": 48,
+      "id": 21,
       "legend": {
         "avg": false,
         "current": false,
@@ -1570,7 +1586,7 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "mc_stats{type=\"solar\"} > 0",
+          "expr": "tng_stats{type=\"solar\"} > 0",
           "interval": "60s",
           "legendFormat": "{{asset}}",
           "refId": "A"
@@ -1580,7 +1596,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Solar- Max Capacity",
+      "title": "Solar- Generated Breakdown",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1650,12 +1666,12 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 12,
+        "w": 24,
         "x": 0,
         "y": 67
       },
       "hiddenSeries": false,
-      "id": 47,
+      "id": 51,
       "legend": {
         "avg": false,
         "current": false,
@@ -1683,17 +1699,33 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "tng_stats{type=\"hydro\"} > 0",
-          "interval": "120s",
-          "legendFormat": "{{asset}}",
+          "expr": "sum(mc_stats{type=\"hydro\"} >= 0)",
+          "hide": false,
+          "interval": "60s",
+          "legendFormat": "Max Capacity",
           "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"hydro\"} >= 0)",
+          "interval": "60s",
+          "legendFormat": "Generated",
+          "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(dcr_stats{type=\"hydro\"} >= 0)",
+          "hide": false,
+          "interval": "60s",
+          "legendFormat": "Dispatched Contingency Reserve",
+          "refId": "C"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Hydro - Total Net Generated",
+      "title": "Hydro - Overview",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1741,7 +1773,7 @@
       "description": "",
       "fieldConfig": {
         "defaults": {
-          "unit": "percentunit"
+          "unit": "megwatt"
         },
         "overrides": []
       },
@@ -1749,12 +1781,12 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 67
+        "w": 24,
+        "x": 0,
+        "y": 75
       },
       "hiddenSeries": false,
-      "id": 22,
+      "id": 47,
       "legend": {
         "avg": false,
         "current": false,
@@ -1782,8 +1814,8 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(tng_stats{type=\"hydro\"}/mc_stats{type=\"hydro\"}) > 0",
-          "interval": "120s",
+          "expr": "tng_stats{type=\"hydro\"} > 0",
+          "interval": "60s",
           "legendFormat": "{{asset}}",
           "refId": "A"
         }
@@ -1792,7 +1824,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Hydro - Percentage of Capacity",
+      "title": "Hydro - Generated Breakdown",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1808,8 +1840,8 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1214",
-          "format": "percentunit",
+          "$$hashKey": "object:1161",
+          "format": "megwatt",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -1817,7 +1849,7 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1215",
+          "$$hashKey": "object:1162",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -1838,12 +1870,127 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 75
+        "y": 83
       },
       "id": 11,
       "panels": [],
       "title": "Coal",
       "type": "row"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "megwatt"
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 84
+      },
+      "hiddenSeries": false,
+      "id": 52,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "alertThreshold": true
+      },
+      "percentage": false,
+      "pluginVersion": "8.0.6",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "exemplar": true,
+          "expr": "sum(mc_stats{type=\"coal\"} >= 0)",
+          "hide": false,
+          "interval": "60s",
+          "legendFormat": "Max Capacity",
+          "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"coal\"} >= 0)",
+          "interval": "60s",
+          "legendFormat": "Generated",
+          "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(dcr_stats{type=\"coal\"} >= 0)",
+          "hide": false,
+          "interval": "60s",
+          "legendFormat": "Dispatched Contingency Reserve",
+          "refId": "C"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Coal - Overview",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1161",
+          "format": "megwatt",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1162",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
     },
     {
       "aliasColors": {},
@@ -1861,9 +2008,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 12,
+        "w": 24,
         "x": 0,
-        "y": 76
+        "y": 92
       },
       "hiddenSeries": false,
       "id": 9,
@@ -1895,7 +2042,7 @@
         {
           "exemplar": true,
           "expr": "tng_stats{type=\"coal\"} > 0",
-          "interval": "120s",
+          "interval": "60s",
           "legendFormat": "{{asset}}",
           "refId": "A"
         }
@@ -1904,7 +2051,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Coal - Total Net Generated",
+      "title": "Coal - Generated Breakdown",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1944,14 +2091,29 @@
       }
     },
     {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 100
+      },
+      "id": 6,
+      "panels": [],
+      "title": "Wind",
+      "type": "row"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "description": "",
       "fieldConfig": {
         "defaults": {
-          "unit": "percentunit"
+          "unit": "megwatt"
         },
         "overrides": []
       },
@@ -1959,12 +2121,12 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 76
+        "w": 24,
+        "x": 0,
+        "y": 101
       },
       "hiddenSeries": false,
-      "id": 12,
+      "id": 53,
       "legend": {
         "avg": false,
         "current": false,
@@ -1992,17 +2154,33 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(tng_stats{type=\"coal\"}/mc_stats{type=\"coal\"}) > 0",
-          "interval": "120s",
-          "legendFormat": "{{asset}}",
+          "expr": "sum(mc_stats{type=\"wind\"} >= 0)",
+          "hide": false,
+          "interval": "60s",
+          "legendFormat": "Max Capacity",
           "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"wind\"} >= 0)",
+          "interval": "60s",
+          "legendFormat": "Generated",
+          "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(dcr_stats{type=\"wind\"} >= 0)",
+          "hide": false,
+          "interval": "60s",
+          "legendFormat": "Dispatched Contingency Reserve",
+          "refId": "C"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Coal - Percentage of Capacity",
+      "title": "Wind - Overview",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2018,8 +2196,8 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1267",
-          "format": "percentunit",
+          "$$hashKey": "object:1161",
+          "format": "megwatt",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -2027,7 +2205,7 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1268",
+          "$$hashKey": "object:1162",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -2040,20 +2218,6 @@
         "align": false,
         "alignLevel": null
       }
-    },
-    {
-      "collapsed": false,
-      "datasource": null,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 84
-      },
-      "id": 6,
-      "panels": [],
-      "title": "Wind",
-      "type": "row"
     },
     {
       "aliasColors": {},
@@ -2071,9 +2235,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 12,
+        "w": 24,
         "x": 0,
-        "y": 85
+        "y": 109
       },
       "hiddenSeries": false,
       "id": 4,
@@ -2105,7 +2269,7 @@
         {
           "exemplar": true,
           "expr": "tng_stats{type=\"wind\"} > 0",
-          "interval": "120s",
+          "interval": "60s",
           "legendFormat": "{{asset}}",
           "refId": "A"
         }
@@ -2114,7 +2278,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Wind Total Net Generated",
+      "title": "Wind - Generated Breakdown",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2154,14 +2318,29 @@
       }
     },
     {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 117
+      },
+      "id": 14,
+      "panels": [],
+      "title": "Gas",
+      "type": "row"
+    },
+    {
       "aliasColors": {},
       "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
+      "description": "",
       "fieldConfig": {
         "defaults": {
-          "unit": "percentunit"
+          "unit": "megwatt"
         },
         "overrides": []
       },
@@ -2169,12 +2348,12 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 85
+        "w": 24,
+        "x": 0,
+        "y": 118
       },
       "hiddenSeries": false,
-      "id": 8,
+      "id": 54,
       "legend": {
         "avg": false,
         "current": false,
@@ -2202,17 +2381,33 @@
       "targets": [
         {
           "exemplar": true,
-          "expr": "(tng_stats{type=\"wind\"}/mc_stats{type=\"wind\"}) > 0",
-          "interval": "120s",
-          "legendFormat": "{{asset}}",
+          "expr": "sum(mc_stats{type=\"gas\"} >= 0)",
+          "hide": false,
+          "interval": "60s",
+          "legendFormat": "Max Capacity",
           "refId": "A"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(tng_stats{type=\"gas\"} >= 0)",
+          "interval": "60s",
+          "legendFormat": "Generated",
+          "refId": "B"
+        },
+        {
+          "exemplar": true,
+          "expr": "sum(dcr_stats{type=\"gas\"} >= 0)",
+          "hide": false,
+          "interval": "60s",
+          "legendFormat": "Dispatched Contingency Reserve",
+          "refId": "C"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Wind - Percentage of Capacity",
+      "title": "Gas - Overview",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2228,8 +2423,8 @@
       },
       "yaxes": [
         {
-          "$$hashKey": "object:1320",
-          "format": "percentunit",
+          "$$hashKey": "object:1161",
+          "format": "megwatt",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -2237,7 +2432,7 @@
           "show": true
         },
         {
-          "$$hashKey": "object:1321",
+          "$$hashKey": "object:1162",
           "format": "short",
           "label": null,
           "logBase": 1,
@@ -2250,20 +2445,6 @@
         "align": false,
         "alignLevel": null
       }
-    },
-    {
-      "collapsed": false,
-      "datasource": null,
-      "gridPos": {
-        "h": 1,
-        "w": 24,
-        "x": 0,
-        "y": 93
-      },
-      "id": 14,
-      "panels": [],
-      "title": "Gas",
-      "type": "row"
     },
     {
       "aliasColors": {},
@@ -2281,9 +2462,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 12,
+        "w": 24,
         "x": 0,
-        "y": 94
+        "y": 126
       },
       "hiddenSeries": false,
       "id": 15,
@@ -2315,7 +2496,7 @@
         {
           "exemplar": true,
           "expr": "tng_stats{type=\"gas\",category=\"Simple\"} > 0",
-          "interval": "120s",
+          "interval": "60s",
           "legendFormat": "{{asset}}",
           "refId": "A"
         }
@@ -2324,7 +2505,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Gas - Simple Cycle - Total Net Generated",
+      "title": "Gas - Simple Cycle - Generated Breakdown",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2380,9 +2561,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 94
+        "w": 24,
+        "x": 0,
+        "y": 134
       },
       "hiddenSeries": false,
       "id": 25,
@@ -2414,7 +2595,7 @@
         {
           "exemplar": true,
           "expr": "tng_stats{type=\"gas\",category=\"Cogeneration\"} > 0",
-          "interval": "120s",
+          "interval": "60s",
           "legendFormat": "{{asset}}",
           "refId": "A"
         }
@@ -2423,7 +2604,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Gas - Cogeneration - Total Net Generated",
+      "title": "Gas - Cogeneration - Generated Breakdown",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2479,9 +2660,9 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 8,
-        "w": 12,
+        "w": 24,
         "x": 0,
-        "y": 102
+        "y": 142
       },
       "hiddenSeries": false,
       "id": 26,
@@ -2513,7 +2694,7 @@
         {
           "exemplar": true,
           "expr": "tng_stats{type=\"gas\",category=\"Combined\"} > 0",
-          "interval": "120s",
+          "interval": "60s",
           "legendFormat": "{{asset}}",
           "refId": "A"
         }
@@ -2522,7 +2703,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "Gas - Combined- Total Net Generated",
+      "title": "Gas - Combined- Generated Breakdown",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -2560,120 +2741,6 @@
         "align": false,
         "alignLevel": null
       }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": null,
-      "fieldConfig": {
-        "defaults": {
-          "unit": "percentunit"
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 8,
-        "w": 12,
-        "x": 12,
-        "y": 102
-      },
-      "hiddenSeries": false,
-      "id": 16,
-      "legend": {
-        "avg": false,
-        "current": false,
-        "max": false,
-        "min": false,
-        "show": true,
-        "total": false,
-        "values": false
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "options": {
-        "alertThreshold": true
-      },
-      "percentage": false,
-      "pluginVersion": "8.0.6",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(tng_stats{type=\"gas\",category=\"Simple\"})/sum(mc_stats{type=\"gas\",category=\"Simple\"})",
-          "interval": "120s",
-          "legendFormat": "Simple Cycle",
-          "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "sum(tng_stats{type=\"gas\",category=\"Cogeneration\"} >= 0) / sum(mc_stats{type=\"gas\",category=\"Cogeneration\"} >= 0)",
-          "hide": false,
-          "interval": "120s",
-          "legendFormat": "Cogeneration Cycle",
-          "refId": "B"
-        },
-        {
-          "exemplar": true,
-          "expr": "sum(tng_stats{type=\"gas\",category=\"Combined\"})/sum(mc_stats{type=\"gas\",category=\"Combined\"})",
-          "hide": false,
-          "interval": "120s",
-          "legendFormat": "Combined Cycle",
-          "refId": "C"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "Gas- Percentage of Capacity by Type",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "$$hashKey": "object:1477",
-          "format": "percentunit",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "$$hashKey": "object:1478",
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
     }
   ],
   "refresh": "1m",
@@ -2684,12 +2751,12 @@
     "list": []
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "AESO - Status",
   "uid": "LATiptyGk",
-  "version": 12
+  "version": 14
 }
