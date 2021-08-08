@@ -6,9 +6,10 @@ const http = require('http')
 const url = require('url')
 
 const client = require('prom-client');
-// const collectDefaultMetrics = client.collectDefaultMetrics;
+const collectDefaultMetrics = client.collectDefaultMetrics;
 const Registry = client.Registry;
 const register = new Registry();
+collectDefaultMetrics({ register });
 
 register.setDefaultLabels({
   app: 'alberta-energy'
@@ -86,11 +87,18 @@ async function getCurrentPoolPrice() {
   let response = await axios( { url: "https://www.aeso.ca/ets/ets.json", 
   headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36' }});
 
-  var data = response.data;
-  if ( data.poolprice && data.poolprice instanceof Array && data.poolprice.length > 0 && data.poolprice[data.poolprice.length -1][1]) {
-    poolprice_stats.set(data.poolprice[data.poolprice.length -1][1]);  
-  } else { 
-    console.log('Error setting pool price',data.poolprice);
+  if (response.status) {
+    try {
+      var data = response.data;
+      if (data.poolprice && data.poolprice instanceof Array && data.poolprice.length > 0 && data.poolprice[data.poolprice.length - 1][1]) {
+        poolprice_stats.set(data.poolprice[data.poolprice.length - 1][1]);
+      } else {
+        console.log('Error setting pool price', data.poolprice);
+      }
+    } catch (error) {
+      console.error("Unable to get/set pool price.", error);
+    }
+
   }
 }
 
@@ -227,27 +235,14 @@ async function getCurrentStats() {
     });
 } 
 
-function callStatsScraperEveryNSeconds(n) {
-    setInterval(getCurrentStats, n * 1000);
-}
-
-function callPoolPriceEveryNSeconds(n) {
-  setInterval(getCurrentPoolPrice, n * 1000);
-}
-
-getCurrentPoolPrice();
-callPoolPriceEveryNSeconds(300);
-
-getCurrentStats();
-callStatsScraperEveryNSeconds(60);
-
-
 const server = http.createServer(async (req, res) => {
     // Retrieve route from request object
     const route = url.parse(req.url).pathname
     
     if (route === '/metrics') {
       // Return all metrics the Prometheus exposition format
+      await getCurrentPoolPrice()
+      await getCurrentStats()
       res.setHeader('Content-Type', register.contentType)
       let data = await register.metrics();
       res.end(data);
