@@ -24,6 +24,8 @@ services:
       context: .
       dockerfile: Dockerfile.weather
     container_name: weather
+    environment:
+      - OPENWEATHER_API_KEY=${OPENWEATHER_API_KEY}
     networks:
       - monitor-net
     expose:

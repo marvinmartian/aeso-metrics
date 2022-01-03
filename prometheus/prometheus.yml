@@ -21,4 +21,4 @@ scrape_configs:
   - job_name: 'weather'
     scrape_interval: 5m
     static_configs:
-      - targets: ['aeso:8181']
+      - targets: ['weather:8181']
