@@ -19,6 +19,6 @@ scrape_configs:
       - targets: ['aeso:8080']
 
   - job_name: 'weather'
-    scrape_interval: 10m
+    scrape_interval: 2m
     static_configs:
       - targets: ['weather:8181']
