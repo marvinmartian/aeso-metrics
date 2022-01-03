@@ -47,14 +47,13 @@ async function getWeatherData() {
   const user_agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36'
   const city_array = [
     5946768,
-    5913490,
-    6118158,
-    6053154,
-    6155033,
-    6071618,
-    5964347
+    5913490
   ]
-
+  // 6118158,
+  // 6053154,
+  // 6155033,
+  // 6071618,
+  // 5964347
   let req_array = [];
   
   city_array.forEach((city_id) => {
