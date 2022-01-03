@@ -18,9 +18,16 @@ register.setDefaultLabels({
 const temperature_metrics = new client.Gauge({
   name: 'temperature',
   help: 'Temperature Data',
-  labelNames: ['city', 'feels_like']
+  labelNames: ['city']
 });
 register.registerMetric(temperature_metrics);
+
+const feels_like_temp_metrics = new client.Gauge({
+  name: 'feels_like',
+  help: 'Temperature Data',
+  labelNames: ['city']
+});
+register.registerMetric(feels_like_temp_metrics);
 
 const wind_metrics = new client.Gauge({
     name: 'wind',
@@ -57,11 +64,11 @@ async function getWeatherData() {
   await axios.all(req_array).then(axios.spread((...responses) => {
     responses.forEach((weather_response,index) => {
         // console.log(weather_response.data)
-        temperature_metrics.set({city: weather_response.data.name, feels_like: weather_response.data.main.feels_like},weather_response.data.main.temp);
+        temperature_metrics.set({city: weather_response.data.name},weather_response.data.main.temp);
+        feels_like_temp_metrics.set({city: weather_response.data.name},weather_response.data.main.feels_like);
         wind_metrics.set({city: weather_response.data.name},weather_response.data.wind.speed);
     })
-    
-    
+        
   }));
 }
 
