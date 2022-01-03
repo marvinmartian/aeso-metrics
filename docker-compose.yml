@@ -17,10 +17,10 @@ services:
     expose:
       - 8080
     restart: unless-stopped
-    # ports:
-    #   - "8282:8080"
+
+
   weather:
-    build: Dockefile.weather
+    build: ./Dockerfile.weather
     container_name: aeso
     networks:
       - monitor-net
