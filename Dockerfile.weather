@@ -1,0 +1,8 @@
+FROM node:alpine
+
+COPY package*.json weather.js ./
+RUN npm install
+
+EXPOSE 8181
+
+CMD [ "node", "weather.js" ]

@@ -19,6 +19,14 @@ services:
     restart: unless-stopped
     # ports:
     #   - "8282:8080"
+  weather:
+    build: Dockefile.weather
+    container_name: aeso
+    networks:
+      - monitor-net
+    expose:
+      - 8080
+    restart: unless-stopped
 
   prometheus:
     image: prom/prometheus:latest
