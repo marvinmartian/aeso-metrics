@@ -23,7 +23,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.weather
-    container_name: aeso
+    container_name: weather
     networks:
       - monitor-net
     expose:
