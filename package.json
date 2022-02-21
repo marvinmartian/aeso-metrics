@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "axios": "^0.21.1",
+    "axios": "^0.26.0",
     "cheerio": "^1.0.0-rc.3",
-    "prom-client": "^13.1.0"
+    "prom-client": "^14.0.1"
   }
 }
