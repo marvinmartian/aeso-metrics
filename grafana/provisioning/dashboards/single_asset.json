@@ -1,308 +1,308 @@
 {
-    "annotations": {
-      "list": [
-        {
-          "builtIn": 1,
-          "datasource": "-- Grafana --",
-          "enable": true,
-          "hide": true,
-          "iconColor": "rgba(0, 211, 255, 1)",
-          "name": "Annotations & Alerts",
-          "target": {
-            "limit": 100,
-            "matchAny": false,
-            "tags": [],
-            "type": "dashboard"
-          },
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
           "type": "dashboard"
-        }
-      ]
-    },
-    "editable": true,
-    "fiscalYearStartMonth": 0,
-    "graphTooltip": 0,
-    "id": 3,
-    "iteration": 1648139773947,
-    "links": [],
-    "liveNow": false,
-    "panels": [
-      {
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            },
-            "unit": "percentunit"
-          },
-          "overrides": []
         },
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 0,
-          "y": 0
-        },
-        "id": 4,
-        "options": {
-          "colorMode": "value",
-          "graphMode": "area",
-          "justifyMode": "auto",
-          "orientation": "auto",
-          "reduceOptions": {
-            "calcs": [
-              "lastNotNull"
-            ],
-            "fields": "",
-            "values": false
-          },
-          "textMode": "auto"
-        },
-        "pluginVersion": "8.4.3",
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "PBFA97CFB590B2093"
-            },
-            "exemplar": true,
-            "expr": "sum(tng_stats{asset=\"$asset\"}) / sum(tng_stats)",
-            "interval": "",
-            "legendFormat": "",
-            "refId": "A"
-          }
-        ],
-        "title": "$asset",
-        "type": "stat"
-      },
-      {
-        "circleMaxSize": 30,
-        "circleMinSize": 2,
-        "colors": [
-          "rgba(245, 54, 54, 0.9)",
-          "rgba(237, 129, 40, 0.89)",
-          "rgba(50, 172, 45, 0.97)"
-        ],
-        "decimals": 0,
-        "esMetric": "Count",
-        "gridPos": {
-          "h": 8,
-          "w": 12,
-          "x": 12,
-          "y": 0
-        },
-        "hideEmpty": false,
-        "hideZero": false,
-        "id": 6,
-        "initialZoom": "4",
-        "jsonUrl": "https://623b745d2e056d1037f2e10a.mockapi.io/api/v1/asset",
-        "locationData": "json endpoint",
-        "mapCenter": "custom",
-        "mapCenterLatitude": "53.9333",
-        "mapCenterLongitude": "-116.5765",
-        "maxDataPoints": 1,
-        "mouseWheelZoom": false,
-        "showLegend": true,
-        "stickyLabels": false,
-        "tableQueryOptions": {
-          "geohashField": "geohash",
-          "latitudeField": "latitude",
-          "longitudeField": "longitude",
-          "metricField": "metric",
-          "queryType": "geohash"
-        },
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "PBFA97CFB590B2093"
-            },
-            "exemplar": true,
-            "expr": "tng_stats{asset=\"$asset\"}",
-            "interval": "",
-            "legendFormat": "{{asset}}",
-            "refId": "A"
-          }
-        ],
-        "thresholds": "0,10",
-        "title": "Panel Title",
-        "type": "grafana-worldmap-panel",
-        "unitPlural": "",
-        "unitSingle": "",
-        "unitSingular": "",
-        "valueName": "total"
-      },
-      {
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "palette-classic"
-            },
-            "custom": {
-              "axisLabel": "",
-              "axisPlacement": "auto",
-              "barAlignment": 0,
-              "drawStyle": "line",
-              "fillOpacity": 0,
-              "gradientMode": "none",
-              "hideFrom": {
-                "legend": false,
-                "tooltip": false,
-                "viz": false
-              },
-              "lineInterpolation": "linear",
-              "lineWidth": 1,
-              "pointSize": 5,
-              "scaleDistribution": {
-                "type": "linear"
-              },
-              "showPoints": "auto",
-              "spanNulls": false,
-              "stacking": {
-                "group": "A",
-                "mode": "none"
-              },
-              "thresholdsStyle": {
-                "mode": "off"
-              }
-            },
-            "mappings": [],
-            "thresholds": {
-              "mode": "absolute",
-              "steps": [
-                {
-                  "color": "green",
-                  "value": null
-                },
-                {
-                  "color": "red",
-                  "value": 80
-                }
-              ]
-            },
-            "unit": "megwatt"
-          },
-          "overrides": []
-        },
-        "gridPos": {
-          "h": 10,
-          "w": 24,
-          "x": 0,
-          "y": 8
-        },
-        "id": 2,
-        "options": {
-          "legend": {
-            "calcs": [],
-            "displayMode": "list",
-            "placement": "bottom"
-          },
-          "tooltip": {
-            "mode": "single",
-            "sort": "none"
-          }
-        },
-        "targets": [
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "PBFA97CFB590B2093"
-            },
-            "exemplar": true,
-            "expr": "tng_stats{asset=\"$asset\"}",
-            "interval": "",
-            "legendFormat": "Total Net Generation",
-            "refId": "A"
-          },
-          {
-            "datasource": {
-              "type": "prometheus",
-              "uid": "PBFA97CFB590B2093"
-            },
-            "exemplar": true,
-            "expr": "mc_stats{asset=\"$asset\"}",
-            "hide": false,
-            "interval": "",
-            "legendFormat": "Max Capacity",
-            "refId": "B"
-          }
-        ],
-        "title": "Total Net Generated",
-        "type": "timeseries"
+        "type": "dashboard"
       }
-    ],
-    "schemaVersion": 35,
-    "style": "dark",
-    "tags": [],
-    "templating": {
-      "list": [
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 3,
+  "iteration": 1648409792774,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 4,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "8.4.4",
+      "targets": [
         {
-          "current": {
-            "selected": false,
-            "text": "Keephills_3_KH3",
-            "value": "Keephills_3_KH3"
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
           },
-          "definition": "label_values(asset)",
-          "hide": 0,
-          "includeAll": false,
-          "multi": false,
-          "name": "asset",
-          "options": [],
-          "query": {
-            "query": "label_values(asset)",
-            "refId": "StandardVariableQuery"
+          "exemplar": true,
+          "expr": "sum(tng_stats{asset=\"$asset\"}) / sum(tng_stats)",
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "title": "$asset",
+      "type": "stat"
+    },
+    {
+      "circleMaxSize": 30,
+      "circleMinSize": 2,
+      "colors": [
+        "rgba(245, 54, 54, 0.9)",
+        "rgba(237, 129, 40, 0.89)",
+        "rgba(50, 172, 45, 0.97)"
+      ],
+      "decimals": 0,
+      "esMetric": "Count",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "hideEmpty": false,
+      "hideZero": false,
+      "id": 6,
+      "initialZoom": "4",
+      "jsonUrl": "https://623b745d2e056d1037f2e10a.mockapi.io/api/v1/asset",
+      "locationData": "json endpoint",
+      "mapCenter": "custom",
+      "mapCenterLatitude": "53.9333",
+      "mapCenterLongitude": "-116.5765",
+      "maxDataPoints": 1,
+      "mouseWheelZoom": false,
+      "showLegend": true,
+      "stickyLabels": false,
+      "tableQueryOptions": {
+        "geohashField": "geohash",
+        "latitudeField": "latitude",
+        "longitudeField": "longitude",
+        "metricField": "metric",
+        "queryType": "geohash"
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
           },
-          "refresh": 1,
-          "regex": "",
-          "skipUrlSync": false,
-          "sort": 0,
-          "type": "query"
+          "exemplar": true,
+          "expr": "tng_stats{asset=\"$asset\"}",
+          "interval": "",
+          "legendFormat": "{{asset}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": "0,10",
+      "title": "Panel Title",
+      "type": "grafana-worldmap-panel",
+      "unitPlural": "",
+      "unitSingle": "",
+      "unitSingular": "",
+      "valueName": "total"
+    },
+    {
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "megwatt"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 24,
+        "x": 0,
+        "y": 8
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "exemplar": true,
+          "expr": "tng_stats{asset=\"$asset\"}",
+          "interval": "",
+          "legendFormat": "Total Net Generation",
+          "refId": "A"
         },
         {
-          "current": {
-            "selected": false,
-            "text": "tng_stats{app=\"alberta-energy\",asset=\"Keephills_3_KH3\",category=\"Combined\",instance=\"aeso:8080\",job=\"aeso\",type=\"gas\"} 463 1648139774000",
-            "value": "tng_stats{app=\"alberta-energy\",asset=\"Keephills_3_KH3\",category=\"Combined\",instance=\"aeso:8080\",job=\"aeso\",type=\"gas\"} 463 1648139774000"
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
           },
-          "definition": "query_result(tng_stats{asset=~\"$asset\"})",
-          "hide": 2,
-          "includeAll": false,
-          "multi": false,
-          "name": "tng_stats",
-          "options": [],
-          "query": {
-            "query": "query_result(tng_stats{asset=~\"$asset\"})",
-            "refId": "StandardVariableQuery"
-          },
-          "refresh": 1,
-          "regex": "",
-          "skipUrlSync": false,
-          "sort": 0,
-          "type": "query"
+          "exemplar": true,
+          "expr": "mc_stats{asset=\"$asset\"}",
+          "hide": false,
+          "interval": "",
+          "legendFormat": "Max Capacity",
+          "refId": "B"
         }
-      ]
-    },
-    "time": {
-      "from": "now-6h",
-      "to": "now"
-    },
-    "timepicker": {},
-    "timezone": "",
-    "title": "Single Asset Breakdown",
-    "uid": "QiP5hxfnk",
-    "version": 12,
-    "weekStart": ""
-  }
+      ],
+      "title": "Total Net Generated",
+      "type": "timeseries"
+    }
+  ],
+  "schemaVersion": 35,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Keephills_3_KH3",
+          "value": "Keephills_3_KH3"
+        },
+        "definition": "label_values(asset)",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "asset",
+        "options": [],
+        "query": {
+          "query": "label_values(asset)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "tng_stats{app=\"alberta-energy\",asset=\"Keephills_3_KH3\",category=\"Combined\",instance=\"aeso:8080\",job=\"aeso\",type=\"gas\"} 460 1648409793000",
+          "value": "tng_stats{app=\"alberta-energy\",asset=\"Keephills_3_KH3\",category=\"Combined\",instance=\"aeso:8080\",job=\"aeso\",type=\"gas\"} 460 1648409793000"
+        },
+        "definition": "query_result(tng_stats{asset=~\"$asset\"})",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "tng_stats",
+        "options": [],
+        "query": {
+          "query": "query_result(tng_stats{asset=~\"$asset\"})",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Single Asset Breakdown",
+  "uid": "QiP5hxfnk",
+  "version": 14,
+  "weekStart": ""
+}
