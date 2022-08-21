@@ -18,6 +18,9 @@ services:
     expose:
       - 8080
     restart: unless-stopped
+    labels:
+      - "com.centurylinklabs.watchtower.scope=aeso"
+      - "org.label-schema.group=monitoring"
 
 
   weather:
@@ -52,7 +55,8 @@ services:
     networks:
       - monitor-net
     labels:
-      org.label-schema.group: "monitoring"
+      - "com.centurylinklabs.watchtower.scope=aeso"
+      - "org.label-schema.group=monitoring"
 
   grafana:
     image: grafana/grafana:latest
@@ -75,4 +79,17 @@ services:
     networks:
       - monitor-net
     labels:
-      org.label-schema.group: "monitoring"
+      - "com.centurylinklabs.watchtower.scope=aeso"
+      - "org.label-schema.group=monitoring"
+      
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30 --scope aeso
+    environment:
+      - WATCHTOWER_CLEANUP=true
+      - WATCHTOWER_LABEL_ENABLE=true
+      - WATCHTOWER_INCLUDE_RESTARTING=true
+    labels:
+      - "com.centurylinklabs.watchtower.scope=aeso"
