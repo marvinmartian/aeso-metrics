@@ -1,4 +1,4 @@
-FROM node:alpine
+FROM node:slim
 
 COPY package*.json interval.js ./
 RUN npm install
