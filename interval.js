@@ -251,7 +251,7 @@ const server = http.createServer(async (req, res) => {
     
     if (route === '/metrics') {
       // Return all metrics the Prometheus exposition format
-      await getCurrentPoolPrice()
+      // await getCurrentPoolPrice()
       await getCurrentStats()
       res.setHeader('Content-Type', register.contentType)
       let data = await register.metrics();
