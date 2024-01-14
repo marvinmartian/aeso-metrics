@@ -10,8 +10,8 @@ volumes:
 
 services:
   app:
-    build: .
-    # image: marvinmartian/aeso
+    # build: .
+    image: marvinmartian/aeso
     container_name: aeso
     networks:
       - monitor-net
