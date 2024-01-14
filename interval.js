@@ -84,21 +84,30 @@ function captureMetrics(stat_object,asset_type,category) {
 }
 
 async function getCurrentPoolPrice() {
-  let response = await axios( { url: "https://www.aeso.ca/ets/ets.json", 
-  headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36' }});
-
-  if (response.status) {
-    try {
-      var data = response.data;
-      if (data.poolprice && data.poolprice instanceof Array && data.poolprice.length > 0 && data.poolprice[data.poolprice.length - 1][1]) {
-        poolprice_stats.set(data.poolprice[data.poolprice.length - 1][1]);
-      } else {
-        console.log('Error setting pool price', data.poolprice);
+  try {
+    let response = await axios( { url: "https://www.aeso.ca/ets/ets.json", 
+    headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36' }});
+  
+    if (response.status) {
+      try {
+        var data = response.data;
+        if (data.poolprice && data.poolprice instanceof Array && data.poolprice.length > 0 && data.poolprice[data.poolprice.length - 1][1]) {
+          poolprice_stats.set(data.poolprice[data.poolprice.length - 1][1]);
+        } else {
+          console.log('Error setting pool price', data.poolprice);
+        }
+      } catch (error) {
+        console.error("Unable to get/set pool price.", error);
       }
-    } catch (error) {
-      console.error("Unable to get/set pool price.", error);
+  
     }
-
+  }
+  catch(error) { 
+    if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
+      console.error("The request timed out:", error);
+    } else {
+      console.error("An error occurred while making the request:", error);
+    }
   }
 }
 
@@ -241,8 +250,22 @@ const server = http.createServer(async (req, res) => {
     
     if (route === '/metrics') {
       // Return all metrics the Prometheus exposition format
-      await getCurrentPoolPrice()
-      await getCurrentStats()
+      try {
+        // Attempt to get pool price
+        await getCurrentPoolPrice();
+      } catch (poolPriceError) {
+        console.error('Error in getCurrentPoolPrice:', poolPriceError);
+        // Handle the error if needed
+      }
+      try {
+        // Attempt to get current stats
+        await getCurrentStats();
+      } catch (statsError) {
+        console.error('Error in getCurrentStats:', statsError);
+        // Handle the error if needed
+      }
+      // await getCurrentPoolPrice()
+      // await getCurrentStats()
       res.setHeader('Content-Type', register.contentType)
       let data = await register.metrics();
       res.end(data);
