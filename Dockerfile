@@ -1,4 +1,4 @@
-FROM node:slim
+FROM node
 # FROM node:19.6.0-slim
 
 COPY package*.json interval.js ./
