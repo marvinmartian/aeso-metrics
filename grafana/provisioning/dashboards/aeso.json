@@ -3,7 +3,10 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "-- Grafana --",
+        "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+        },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -40,6 +43,10 @@
   "liveNow": false,
   "panels": [
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -84,12 +91,18 @@
           "values": false
         },
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.4.4",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
-          "expr": "poolprice",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "max(poolprice)",
           "instant": true,
           "interval": "",
           "legendFormat": "",
@@ -100,6 +113,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -149,11 +166,16 @@
           "values": false
         },
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.4.4",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(tng_stats)",
           "format": "time_series",
@@ -167,6 +189,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -216,11 +242,16 @@
           "values": false
         },
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.4.4",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": false,
           "expr": "-interchange{location=\"TOTAL\"}",
           "format": "time_series",
@@ -235,6 +266,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -284,11 +319,16 @@
           "values": false
         },
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.4.4",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(tng_stats >= 0)-sum(interchange{location=\"TOTAL\"})",
           "format": "time_series",
@@ -302,6 +342,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -353,11 +397,16 @@
           "values": false
         },
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.4.4",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(tng_stats >= 0)/sum(mc_stats >= 0)",
           "format": "time_series",
@@ -371,6 +420,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -422,11 +475,16 @@
           "values": false
         },
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.4.4",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(dcr_stats{type=\"energy_storage\"})",
           "format": "time_series",
@@ -440,6 +498,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -482,11 +544,16 @@
           "values": false
         },
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.4.4",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(tng_stats{type=\"coal\"})/sum(mc_stats{type=\"coal\"})",
           "format": "time_series",
@@ -500,6 +567,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -551,11 +622,16 @@
           "values": false
         },
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.4.4",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(tng_stats{type=\"gas\"} >= 0)/sum(mc_stats{type=\"gas\"} >= 0)",
           "format": "time_series",
@@ -569,6 +645,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "description": "",
       "fieldConfig": {
         "defaults": {
@@ -621,11 +701,16 @@
           "values": false
         },
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.4.4",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(tng_stats{type=\"wind\"})/sum(mc_stats{type=\"wind\"})",
           "format": "time_series",
@@ -639,6 +724,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -690,11 +779,16 @@
           "values": false
         },
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.4.4",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(tng_stats{type=\"hydro\"})/sum(mc_stats{type=\"hydro\"})",
           "format": "time_series",
@@ -708,6 +802,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -759,11 +857,16 @@
           "values": false
         },
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.4.4",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(tng_stats{type=\"solar\"})/sum(mc_stats{type=\"solar\"})",
           "format": "time_series",
@@ -777,6 +880,10 @@
       "type": "stat"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -828,11 +935,16 @@
           "values": false
         },
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "8.4.4",
+      "pluginVersion": "10.2.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(tng_stats{type=\"biomass_and_other\"})/sum(mc_stats{type=\"biomass_and_other\"})",
           "format": "time_series",
@@ -852,10 +964,12 @@
         "#73BF69",
         "#FADE2A",
         "#FF9830",
-        "#F2495C",
-        "#F2495C",
-        "#C4162A"
+        "#F2495C"
       ],
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "decimals": 0,
       "esMetric": "Count",
       "gridPos": {
@@ -899,7 +1013,7 @@
           "refId": "A"
         }
       ],
-      "thresholds": "0,200,400,600,800",
+      "thresholds": "200,400,600",
       "title": "Asset Map",
       "type": "grafana-worldmap-panel",
       "unitPlural": "",
@@ -907,112 +1021,19 @@
       "valueName": "current"
     },
     {
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "max": 1,
-          "min": 0,
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
-              }
-            ]
-          },
-          "unit": "percentunit"
-        },
-        "overrides": []
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
       },
-      "gridPos": {
-        "h": 7,
-        "w": 24,
-        "x": 0,
-        "y": 18
-      },
-      "id": 44,
-      "links": [],
-      "options": {
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "showThresholdLabels": false,
-        "showThresholdMarkers": true,
-        "text": {}
-      },
-      "pluginVersion": "8.4.4",
-      "targets": [
-        {
-          "exemplar": true,
-          "expr": "sum(tng_stats{type=\"coal\"}>=0) / sum(tng_stats)",
-          "interval": "2m",
-          "legendFormat": "Coal",
-          "refId": "A"
-        },
-        {
-          "exemplar": true,
-          "expr": "sum(tng_stats{type=\"gas\"}>=0) / sum(tng_stats)",
-          "hide": false,
-          "interval": "2m",
-          "legendFormat": "Gas",
-          "refId": "B"
-        },
-        {
-          "exemplar": true,
-          "expr": "sum(tng_stats{type=\"wind\"}>=0) / sum(tng_stats)",
-          "hide": false,
-          "interval": "2m",
-          "legendFormat": "Wind",
-          "refId": "C"
-        },
-        {
-          "exemplar": true,
-          "expr": "sum(tng_stats{type=\"hydro\"}>=0) / sum(tng_stats)",
-          "hide": false,
-          "interval": "2m",
-          "legendFormat": "Hydro",
-          "refId": "D"
-        },
-        {
-          "exemplar": true,
-          "expr": "sum(tng_stats{type=\"solar\"}>=0) / sum(tng_stats)",
-          "hide": false,
-          "interval": "2m",
-          "legendFormat": "Solar",
-          "refId": "E"
-        },
-        {
-          "exemplar": true,
-          "expr": "sum(tng_stats{type=\"biomass_and_other\"}>=0) / sum(tng_stats)",
-          "hide": false,
-          "interval": "2m",
-          "legendFormat": "Other/Biomass",
-          "refId": "F"
-        }
-      ],
-      "title": "Percentage of Generation by Type",
-      "type": "gauge"
-    },
-    {
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -1024,6 +1045,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1062,14 +1084,15 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 18
       },
       "id": 40,
       "options": {
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -1079,22 +1102,62 @@
       "pluginVersion": "8.3.3",
       "targets": [
         {
-          "expr": "poolprice",
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "max(poolprice)",
+          "hide": true,
           "interval": "5m",
           "legendFormat": "Price",
+          "range": true,
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "poolprice",
+          "hide": false,
+          "interval": "5m",
+          "legendFormat": "Price",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "avg_over_time(poolprice{job=\"poolprice\"}[1h])",
+          "hide": true,
+          "interval": "5m",
+          "legendFormat": "Price",
+          "range": true,
+          "refId": "C"
         }
       ],
       "title": "Pool Price",
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
             "barAlignment": 0,
@@ -1106,6 +1169,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1144,14 +1208,15 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 33
+        "y": 26
       },
       "id": 2,
       "options": {
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -1161,6 +1226,10 @@
       "pluginVersion": "8.3.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "expr": "interchange{location!=\"TOTAL\"}",
           "interval": "120s",
           "legendFormat": "{{location}}",
@@ -1171,6 +1240,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1209,8 +1282,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1226,14 +1298,15 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 42
+        "y": 35
       },
       "id": 20,
       "options": {
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -1243,6 +1316,10 @@
       "pluginVersion": "8.3.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(tng_stats >=0)",
           "interval": "120s",
@@ -1250,6 +1327,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(coal_mc_stats >= 0) + sum(wind_mc_stats >= 0) + sum(gas_mc_stats >= 0) + sum(hydro_mc_stats >= 0) + sum(other_mc_stats >= 0)",
           "hide": true,
@@ -1262,6 +1343,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "description": "Temperatures for Major Cities in Alberta",
       "fieldConfig": {
         "defaults": {
@@ -1302,8 +1387,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1319,14 +1403,15 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 49
+        "y": 42
       },
       "id": 56,
       "options": {
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -1362,6 +1447,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1400,8 +1489,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1417,14 +1505,15 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 57
+        "y": 50
       },
       "id": 18,
       "options": {
         "legend": {
           "calcs": [],
           "displayMode": "list",
-          "placement": "bottom"
+          "placement": "bottom",
+          "showLegend": true
         },
         "tooltip": {
           "mode": "single",
@@ -1434,6 +1523,10 @@
       "pluginVersion": "8.3.3",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(tng_stats{type=\"coal\"} > 0)",
           "interval": "120s",
@@ -1441,6 +1534,10 @@
           "refId": "A"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(tng_stats{type=\"wind\"} > 0)",
           "hide": false,
@@ -1449,6 +1546,10 @@
           "refId": "B"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(tng_stats{type=\"gas\"} > 0)",
           "hide": false,
@@ -1457,6 +1558,10 @@
           "refId": "C"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(tng_stats{type=\"hydro\"} > 0)",
           "hide": false,
@@ -1465,6 +1570,10 @@
           "refId": "E"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(tng_stats{type=\"biomass_and_other\"} > 0)",
           "hide": false,
@@ -1473,6 +1582,10 @@
           "refId": "D"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(tng_stats{type=\"solar\"} > 0)",
           "hide": false,
@@ -1481,6 +1594,10 @@
           "refId": "F"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "exemplar": true,
           "expr": "sum(tng_stats{type=\"dual_fuel\"} > 0)",
           "hide": false,
@@ -1494,15 +1611,23 @@
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 65
+        "y": 58
       },
       "id": 46,
       "panels": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1565,7 +1690,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -1575,6 +1701,10 @@
           "pluginVersion": "8.3.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "sum(mc_stats{type=\"solar\"} >= 0)",
               "hide": false,
@@ -1583,6 +1713,10 @@
               "refId": "A"
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "sum(tng_stats{type=\"solar\"} >= 0)",
               "interval": "60s",
@@ -1590,6 +1724,10 @@
               "refId": "B"
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "sum(dcr_stats{type=\"solar\"} >= 0)",
               "hide": false,
@@ -1602,6 +1740,10 @@
           "type": "timeseries"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1664,7 +1806,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -1674,6 +1817,10 @@
           "pluginVersion": "8.3.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "tng_stats{type=\"solar\"} > 0",
               "interval": "60s",
@@ -1685,20 +1832,37 @@
           "type": "timeseries"
         }
       ],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Solar",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 66
+        "y": 59
       },
       "id": 24,
       "panels": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1761,7 +1925,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -1771,6 +1936,10 @@
           "pluginVersion": "8.3.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "sum(mc_stats{type=\"hydro\"} >= 0)",
               "hide": false,
@@ -1779,6 +1948,10 @@
               "refId": "A"
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "sum(tng_stats{type=\"hydro\"} >= 0)",
               "interval": "60s",
@@ -1786,6 +1959,10 @@
               "refId": "B"
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "sum(dcr_stats{type=\"hydro\"} >= 0)",
               "hide": false,
@@ -1798,6 +1975,10 @@
           "type": "timeseries"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1860,7 +2041,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -1870,6 +2052,10 @@
           "pluginVersion": "8.3.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "tng_stats{type=\"hydro\"} > 0",
               "interval": "60s",
@@ -1881,20 +2067,37 @@
           "type": "timeseries"
         }
       ],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Hydro",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 67
+        "y": 60
       },
       "id": 11,
       "panels": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -1957,7 +2160,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -1967,6 +2171,10 @@
           "pluginVersion": "8.3.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "sum(mc_stats{type=\"coal\"} >= 0)",
               "hide": false,
@@ -1975,6 +2183,10 @@
               "refId": "A"
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "sum(tng_stats{type=\"coal\"} >= 0)",
               "interval": "60s",
@@ -1982,6 +2194,10 @@
               "refId": "B"
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "sum(dcr_stats{type=\"coal\"} >= 0)",
               "hide": false,
@@ -1994,6 +2210,10 @@
           "type": "timeseries"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2055,7 +2275,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -2065,6 +2286,10 @@
           "pluginVersion": "8.3.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "tng_stats{type=\"coal\"} > 0",
               "interval": "60s",
@@ -2076,20 +2301,37 @@
           "type": "timeseries"
         }
       ],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Coal",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 68
+        "y": 61
       },
       "id": 6,
       "panels": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "description": "Wind for Major Cities in Alberta",
           "fieldConfig": {
             "defaults": {
@@ -2153,7 +2395,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -2177,6 +2420,10 @@
           "type": "timeseries"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2239,7 +2486,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -2249,6 +2497,10 @@
           "pluginVersion": "8.3.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "sum(mc_stats{type=\"wind\"} >= 0)",
               "hide": false,
@@ -2257,6 +2509,10 @@
               "refId": "A"
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "sum(tng_stats{type=\"wind\"} >= 0)",
               "interval": "60s",
@@ -2264,6 +2520,10 @@
               "refId": "B"
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "sum(dcr_stats{type=\"wind\"} >= 0)",
               "hide": false,
@@ -2276,6 +2536,10 @@
           "type": "timeseries"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2362,7 +2626,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -2372,6 +2637,10 @@
           "pluginVersion": "8.3.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "tng_stats{type=\"wind\"} > 0",
               "interval": "60s",
@@ -2383,20 +2652,37 @@
           "type": "timeseries"
         }
       ],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Wind",
       "type": "row"
     },
     {
       "collapsed": true,
+      "datasource": {
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 69
+        "y": 62
       },
       "id": 14,
       "panels": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2459,7 +2745,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -2469,6 +2756,10 @@
           "pluginVersion": "8.3.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "sum(mc_stats{type=\"gas\"} >= 0)",
               "hide": false,
@@ -2477,6 +2768,10 @@
               "refId": "A"
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "sum(tng_stats{type=\"gas\"} >= 0)",
               "interval": "60s",
@@ -2484,6 +2779,10 @@
               "refId": "B"
             },
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "sum(dcr_stats{type=\"gas\"} >= 0)",
               "hide": false,
@@ -2496,6 +2795,10 @@
           "type": "timeseries"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -2557,7 +2860,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -2567,6 +2871,10 @@
           "pluginVersion": "8.3.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "tng_stats{type=\"gas\",category=\"Simple\"} > 0",
               "interval": "60s",
@@ -2578,6 +2886,10 @@
           "type": "timeseries"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2640,7 +2952,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -2650,6 +2963,10 @@
           "pluginVersion": "8.3.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "tng_stats{type=\"gas\",category=\"Cogeneration\"} > 0",
               "interval": "60s",
@@ -2661,6 +2978,10 @@
           "type": "timeseries"
         },
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
           "description": "",
           "fieldConfig": {
             "defaults": {
@@ -2723,7 +3044,8 @@
             "legend": {
               "calcs": [],
               "displayMode": "list",
-              "placement": "bottom"
+              "placement": "bottom",
+              "showLegend": true
             },
             "tooltip": {
               "mode": "single",
@@ -2733,6 +3055,10 @@
           "pluginVersion": "8.3.3",
           "targets": [
             {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "PBFA97CFB590B2093"
+              },
               "exemplar": true,
               "expr": "tng_stats{type=\"gas\",category=\"Combined\"} > 0",
               "interval": "60s",
@@ -2744,25 +3070,33 @@
           "type": "timeseries"
         }
       ],
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "refId": "A"
+        }
+      ],
       "title": "Gas",
       "type": "row"
     }
   ],
   "refresh": "1m",
-  "schemaVersion": 35,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-2d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "AESO - Status",
   "uid": "LATiptyGk",
-  "version": 32,
+  "version": 43,
   "weekStart": ""
 }
