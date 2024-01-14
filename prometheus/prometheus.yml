@@ -18,6 +18,11 @@ scrape_configs:
     static_configs:
       - targets: ['aeso:8080']
 
+  - job_name: 'poolprice'
+    scrape_interval: 5m
+    static_configs:
+      - targets: ['poolprice:8080']
+
   - job_name: 'weather'
     scrape_interval: 10m
     static_configs:

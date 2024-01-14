@@ -10,8 +10,8 @@ volumes:
 
 services:
   app:
-    # build: .
-    image: marvinmartian/aeso
+    build: .
+    # image: marvinmartian/aeso
     container_name: aeso
     networks:
       - monitor-net
@@ -22,6 +22,21 @@ services:
       - "com.centurylinklabs.watchtower.scope=aeso"
       - "org.label-schema.group=monitoring"
 
+  poolprice:
+    # build: .
+    # image: marvinmartian/aeso
+    build:
+      context: .
+      dockerfile: Dockerfile.price
+    container_name: poolprice
+    networks:
+      - monitor-net
+    expose:
+      - 8080
+    restart: unless-stopped
+    labels:
+      - "com.centurylinklabs.watchtower.scope=aeso"
+      - "org.label-schema.group=monitoring"
 
   weather:
     build:
@@ -50,6 +65,8 @@ services:
       - '--storage.tsdb.retention.time=500d'
       - '--web.enable-lifecycle'
     restart: unless-stopped
+    ports:
+      - 9090:9090
     expose:
       - 9090
     networks:
