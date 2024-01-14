@@ -88,6 +88,7 @@ services:
       - GF_USERS_ALLOW_SIGN_UP=false
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_INSTALL_PLUGINS=grafana-worldmap-panel
+      - GF_ANALYTICS_GOOGLE_ANALYTICS_UA_ID=${GA_CODE}
     restart: unless-stopped
     ports:
       - "3000:3000"
