@@ -15,11 +15,12 @@ register.setDefaultLabels({
   app: 'alberta-energy'
 })
 
-const poolprice_stats = new client.Gauge({
-  name: 'poolprice',
-  help: 'Pool price per MWh'
+
+process.on('SIGTERM', () => {
+  console.log('Received SIGTERM. Gracefully shutting down...');
+  // Perform cleanup tasks, save state, close connections, etc.
+  process.exit(0); // Exit gracefully
 });
-register.registerMetric(poolprice_stats);
 
 // ##############
 
@@ -83,34 +84,7 @@ function captureMetrics(stat_object,asset_type,category) {
   }
 }
 
-async function getCurrentPoolPrice() {
-  try {
-    const response = await axios({
-      url: "https://www.aeso.ca/ets/ets.json",
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.182 Safari/537.36'
-      },
-      timeout: 5000, // Set your desired timeout value in milliseconds
-    });
 
-    if (response.status === 200) {
-      const data = response.data;
-      if (data.poolprice && data.poolprice instanceof Array && data.poolprice.length > 0 && data.poolprice[data.poolprice.length - 1][1]) {
-        poolprice_stats.set(data.poolprice[data.poolprice.length - 1][1]);
-      } else {
-        console.log('Error setting pool price', data.poolprice);
-      }
-    } else {
-      console.error(`Request failed with status code ${response.status}`);
-    }
-  } catch (err) {
-      if (axios.isAxiosError(err) ) {
-        console.error("An error occurred while making the request:", err.code);
-      } else {
-        console.error("An error occurred while making the request.");
-      }
-  }
-}
 
 async function getCurrentStats() {
     let response = await axios( { url: "http://ets.aeso.ca/ets_web/ip/Market/Reports/CSDReportServlet", 
@@ -251,7 +225,6 @@ const server = http.createServer(async (req, res) => {
     
     if (route === '/metrics') {
       // Return all metrics the Prometheus exposition format
-      // await getCurrentPoolPrice()
       await getCurrentStats()
       res.setHeader('Content-Type', register.contentType)
       let data = await register.metrics();
