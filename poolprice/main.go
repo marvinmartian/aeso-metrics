@@ -58,7 +58,9 @@ func getCurrentPoolPrice() {
 		if ok && len(poolPrice) > 0 {
 			lastPrice, ok := poolPrice[len(poolPrice)-1].([]interface{})
 			if ok && len(lastPrice) > 1 {
-				poolpriceMetric.Set(lastPrice[1].(float64))
+				price := lastPrice[1].(float64)
+				poolpriceMetric.Set(price)
+				fmt.Println("Set the pool price: ", price)
 			} else {
 				fmt.Println("Error setting pool price", poolPrice)
 			}
@@ -70,19 +72,16 @@ func getCurrentPoolPrice() {
 	}
 }
 
-func main() {
-	// Start the HTTP server for Prometheus scraping
-	go func() {
-		http.Handle("/metrics", promhttp.Handler())
-		log.Fatal(http.ListenAndServe(":8080", nil))
-	}()
-
-	// Collect and expose the poolprice metric
+func metricsHandler(w http.ResponseWriter, r *http.Request) {
+	// Trigger the HTTP query and metric update
 	getCurrentPoolPrice()
 
-	// Do something with poolpriceStats if needed
-	fmt.Println(poolpriceMetric)
+	// Serve the metrics endpoint
+	promhttp.Handler().ServeHTTP(w, r)
+}
 
-	// Keep the program running to expose the metric
-	select {}
+func main() {
+	// Start the HTTP server for Prometheus scraping
+	http.HandleFunc("/metrics", metricsHandler)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
