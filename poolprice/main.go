@@ -3,7 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"time"
@@ -43,7 +43,7 @@ func getCurrentPoolPrice() {
 	defer resp.Body.Close()
 
 	if resp.StatusCode == http.StatusOK {
-		body, err := ioutil.ReadAll(resp.Body)
+		body, err := io.ReadAll(resp.Body)
 		if err != nil {
 			log.Fatal("Error reading response body:", err)
 		}
