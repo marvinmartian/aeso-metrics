@@ -24,10 +24,10 @@ services:
 
   poolprice:
     # build: .
-    # image: marvinmartian/aeso
-    build:
-      context: .
-      dockerfile: Dockerfile.price
+    image: marvinmartian/aeso
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.price
     container_name: poolprice
     networks:
       - monitor-net
