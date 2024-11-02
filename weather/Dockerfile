@@ -5,7 +5,7 @@ FROM golang:alpine AS build-stage
 WORKDIR /app
 
 # Copy the Go application files to the container
-COPY weather/ .
+COPY . .
 
 # Build the Go application
 RUN go build -o main .

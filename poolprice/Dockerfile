@@ -14,7 +14,7 @@ RUN echo "Fetching server certificate..." \
 WORKDIR /app
 
 # Copy the Go application files to the container
-COPY poolprice/ .
+COPY . .
 
 # Build the Go application
 RUN go build -o main .
