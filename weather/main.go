@@ -109,6 +109,9 @@ func gatherWeatherData(cityIDs []int) {
 }
 
 func metricsHandler(w http.ResponseWriter, r *http.Request) {
+
+	log.Println("Calling weather API")
+
 	// Array of city IDs to gather weather data for
 	cityIDs := []int{
 		5946768,

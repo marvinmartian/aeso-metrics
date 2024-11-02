@@ -73,6 +73,9 @@ func getCurrentPoolPrice() {
 }
 
 func metricsHandler(w http.ResponseWriter, r *http.Request) {
+
+	log.Println("Getting the pool price json")
+
 	// Trigger the HTTP query and metric update
 	getCurrentPoolPrice()
 
