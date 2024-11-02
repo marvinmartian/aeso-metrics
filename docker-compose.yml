@@ -83,14 +83,13 @@ services:
       - grafana_data:/var/lib/grafana
       # - ./grafana/plugins:/var/lib/grafana/plugins
       - ./grafana/provisioning:/etc/grafana/provisioning
-      - ./grafana/public:/var/lib/grafana/public
+      - ./grafana/public/assets.json:/var/lib/grafana/public/assets.json
     environment:
       - GF_SECURITY_ADMIN_USER=${ADMIN_USER}
       - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD}
       - GF_SERVER_STATIC_ROOT_PATH=/var/lib/grafana/public
       - GF_USERS_ALLOW_SIGN_UP=false
       - GF_AUTH_ANONYMOUS_ENABLED=true
-      - GF_INSTALL_PLUGINS=grafana-worldmap-panel
       - GF_ANALYTICS_GOOGLE_ANALYTICS_UA_ID=${GA_CODE}
     restart: unless-stopped
     ports:
