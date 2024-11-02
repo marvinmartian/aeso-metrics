@@ -24,10 +24,10 @@ services:
 
   poolprice:
     # build: .
-    # image: marvinmartian/aeso
-    build:
-      context: .
-      dockerfile: Dockerfile.price
+    image: marvinmartian/poolprice
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.price
     container_name: poolprice
     networks:
       - monitor-net
@@ -39,9 +39,10 @@ services:
       - "org.label-schema.group=monitoring"
 
   weather:
-    build:
-      context: .
-      dockerfile: Dockerfile.weather
+    image: marvinmartian/weather
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile.weather
     container_name: weather
     environment:
       - OPENWEATHER_API_KEY=${OPENWEATHER_API_KEY}
