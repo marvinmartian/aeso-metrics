@@ -83,7 +83,7 @@ services:
       - grafana_data:/var/lib/grafana
       # - ./grafana/plugins:/var/lib/grafana/plugins
       - ./grafana/provisioning:/etc/grafana/provisioning
-      - ./grafana/public/assets.json:/var/lib/grafana/public/assets.json
+      - ./grafana/public:/var/lib/grafana/public
     environment:
       - GF_SECURITY_ADMIN_USER=${ADMIN_USER}
       - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD}
