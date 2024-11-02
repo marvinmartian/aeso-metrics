@@ -1,5 +1,6 @@
 {
   "type": "FeatureCollection",
+  "name": "Example Facilities",
   "features": [
     {
       "type": "Feature",
@@ -10,7 +11,9 @@
       "properties": {
         "key": "Keephills_3_KH3",
         "name": "Keephills 3",
-        "id": "1"
+        "id": "1",
+        "marker-color": "rgb(0, 128, 255)",
+        "marker-size": 10
       }
     },
     {
@@ -22,7 +25,9 @@
       "properties": {
         "key": "Shepard_EGC1",
         "name": "Shepard EGC1",
-        "id": "2"
+        "id": "2",
+        "marker-color": "rgb(255, 165, 0)",
+        "marker-size": 10
       }
     },
     {
@@ -34,7 +39,9 @@
       "properties": {
         "key": "Firebag_SCR6",
         "name": "Firebag",
-        "id": "3"
+        "id": "3",
+        "marker-color": "rgb(255, 0, 0)",
+        "marker-size": 10
       }
     },
     {
@@ -46,7 +53,9 @@
       "properties": {
         "key": "Syncrude_1_SCL1",
         "name": "Syncrude 1",
-        "id": "4"
+        "id": "4",
+        "marker-color": "rgb(0, 255, 0)",
+        "marker-size": 10
       }
     }
   ]
