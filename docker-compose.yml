@@ -24,10 +24,10 @@ services:
 
   poolprice:
     # build: .
-    image: marvinmartian/aeso
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile.price
+    # image: marvinmartian/aeso
+    build:
+      context: .
+      dockerfile: Dockerfile.price
     container_name: poolprice
     networks:
       - monitor-net
@@ -58,12 +58,12 @@ services:
       - ./prometheus:/etc/prometheus
       - prometheus_data:/prometheus
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/etc/prometheus/console_libraries'
-      - '--web.console.templates=/etc/prometheus/consoles'
-      - '--storage.tsdb.retention.time=500d'
-      - '--web.enable-lifecycle'
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--web.console.libraries=/etc/prometheus/console_libraries"
+      - "--web.console.templates=/etc/prometheus/consoles"
+      - "--storage.tsdb.retention.time=500d"
+      - "--web.enable-lifecycle"
     restart: unless-stopped
     ports:
       - 9090:9090
@@ -99,15 +99,3 @@ services:
     labels:
       - "com.centurylinklabs.watchtower.scope=aeso"
       - "org.label-schema.group=monitoring"
-      
-  watchtower:
-    image: containrrr/watchtower
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    command: --interval 30 --scope aeso
-    environment:
-      - WATCHTOWER_CLEANUP=true
-      - WATCHTOWER_LABEL_ENABLE=true
-      - WATCHTOWER_INCLUDE_RESTARTING=true
-    labels:
-      - "com.centurylinklabs.watchtower.scope=aeso"
