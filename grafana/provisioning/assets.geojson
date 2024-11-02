@@ -1,30 +1,53 @@
-[
+{
+  "type": "FeatureCollection",
+  "features": [
     {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-114.44147566540704, 53.452229933914104]
+      },
+      "properties": {
         "key": "Keephills_3_KH3",
         "name": "Keephills 3",
-        "latitude": 53.452229933914104,
-        "longitude": -114.44147566540704,
         "id": "1"
+      }
     },
     {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-113.8844769, 50.97111642]
+      },
+      "properties": {
         "key": "Shepard_EGC1",
         "name": "Shepard EGC1",
-        "latitude": 50.97111642,
-        "longitude": -113.8844769,
         "id": "2"
+      }
     },
     {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-110.8917457, 57.23719169]
+      },
+      "properties": {
         "key": "Firebag_SCR6",
         "name": "Firebag",
-        "latitude": 57.23719169,
-        "longitude": -110.8917457,
         "id": "3"
+      }
     },
     {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-117.627222, 56.914167]
+      },
+      "properties": {
         "key": "Syncrude_1_SCL1",
         "name": "Syncrude 1",
-        "latitude": 56.914167,
-        "longitude": -117.627222,
         "id": "4"
+      }
     }
-]
+  ]
+}
