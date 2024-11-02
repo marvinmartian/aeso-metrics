@@ -553,8 +553,9 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
+          "editorMode": "code",
           "exemplar": true,
-          "expr": "sum(tng_stats{type=\"coal\"})/sum(mc_stats{type=\"coal\"})",
+          "expr": "sum(tng_stats{type=\"coal\"})/sum(mc_stats{type=\"coal\"}) or vector(0)",
           "format": "time_series",
           "instant": false,
           "interval": "120s",
@@ -1066,9 +1067,9 @@
         },
         "view": {
           "allLayers": true,
-          "id": "zero",
-          "lat": 53.9333,
-          "lon": -116.5765,
+          "id": "coords",
+          "lat": 55.366173,
+          "lon": -120.184928,
           "zoom": 5
         }
       },
@@ -1438,8 +1439,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1549,8 +1549,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -1662,8 +1661,7 @@
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
-                "value": null
+                "color": "green"
               },
               {
                 "color": "red",
@@ -3319,6 +3317,6 @@
   "timezone": "",
   "title": "AESO - Status",
   "uid": "LATiptyGk",
-  "version": 48,
+  "version": 53,
   "weekStart": ""
 }
