@@ -46,7 +46,7 @@ jobs:
           context: ./poolprice
           file: ./poolprice/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          platforms: "linux/arm64,linux/amd64"
+          platforms: "linux/amd64"
           tags: ${{ secrets.DOCKER_USERNAME }}/poolprice:latest
 
       # Build and push Docker image for weather
@@ -56,5 +56,5 @@ jobs:
           context: ./weather
           file: ./weather/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          platforms: "linux/arm64,linux/amd64"
+          platforms: "linux/amd64"
           tags: ${{ secrets.DOCKER_USERNAME }}/weather:latest
