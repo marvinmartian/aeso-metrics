@@ -25,7 +25,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 4,
+  "id": 1,
   "links": [
     {
       "asDropdown": false,
@@ -990,6 +990,9 @@
       },
       "fieldConfig": {
         "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
           "custom": {
             "hideFrom": {
               "legend": false,
@@ -999,7 +1002,7 @@
           },
           "mappings": [],
           "thresholds": {
-            "mode": "absolute",
+            "mode": "percentage",
             "steps": [
               {
                 "color": "#73BF69",
@@ -1007,15 +1010,15 @@
               },
               {
                 "color": "#FADE2A",
-                "value": 200
+                "value": 50
               },
               {
                 "color": "#FF9830",
-                "value": 400
+                "value": 75
               },
               {
                 "color": "#F2495C",
-                "value": 600
+                "value": 100
               }
             ]
           }
@@ -1023,7 +1026,7 @@
         "overrides": []
       },
       "gridPos": {
-        "h": 10,
+        "h": 12,
         "w": 24,
         "x": 0,
         "y": 8
@@ -1033,6 +1036,7 @@
       "options": {
         "basemap": {
           "name": "Basemap",
+          "noRepeat": false,
           "type": "default"
         },
         "controls": {
@@ -1046,56 +1050,32 @@
         "layers": [
           {
             "config": {
-              "showLegend": true,
-              "style": {
-                "color": {
-                  "fixed": "dark-green"
-                },
-                "opacity": 0.4,
-                "rotation": {
-                  "fixed": 0,
-                  "max": 360,
-                  "min": -360,
-                  "mode": "mod"
-                },
-                "size": {
-                  "fixed": 5,
-                  "max": 15,
-                  "min": 2
-                },
-                "symbol": {
-                  "fixed": "img/icons/marker/circle.svg",
-                  "mode": "fixed"
-                },
-                "symbolAlign": {
-                  "horizontal": "center",
-                  "vertical": "center"
-                },
-                "textConfig": {
-                  "fontSize": 12,
-                  "offsetX": 0,
-                  "offsetY": 0,
-                  "textAlign": "center",
-                  "textBaseline": "middle"
-                }
+              "blur": 15,
+              "radius": 15,
+              "weight": {
+                "field": "Value",
+                "fixed": 1,
+                "max": 1,
+                "min": 0
               }
             },
-            "location": {
-              "mode": "auto"
+            "filterData": {
+              "id": "byRefId",
+              "options": "A"
             },
             "name": "Layer 0",
             "tooltip": true,
-            "type": "markers"
+            "type": "heatmap"
           }
         ],
         "tooltip": {
-          "mode": "details"
+          "mode": "none"
         },
         "view": {
           "allLayers": true,
           "id": "coords",
-          "lat": 55.366173,
-          "lon": -120.184928,
+          "lat": 53.686379,
+          "lon": -111.937536,
           "noRepeat": false,
           "zoom": 5
         }
@@ -1107,8 +1087,10 @@
             "type": "prometheus",
             "uid": "PBFA97CFB590B2093"
           },
+          "editorMode": "builder",
           "exemplar": false,
           "expr": "tng_stats",
+          "format": "table",
           "instant": true,
           "interval": "",
           "legendFormat": "{{asset}}",
@@ -1116,6 +1098,24 @@
         }
       ],
       "title": "Asset Map",
+      "transformations": [
+        {
+          "id": "convertFieldType",
+          "options": {
+            "conversions": [
+              {
+                "destinationType": "number",
+                "targetField": "lat"
+              },
+              {
+                "destinationType": "number",
+                "targetField": "lon"
+              }
+            ],
+            "fields": {}
+          }
+        }
+      ],
       "type": "geomap"
     },
     {
@@ -1184,7 +1184,7 @@
         "h": 7,
         "w": 20,
         "x": 0,
-        "y": 18
+        "y": 20
       },
       "id": 40,
       "options": {
@@ -1285,7 +1285,7 @@
         "h": 7,
         "w": 4,
         "x": 20,
-        "y": 18
+        "y": 20
       },
       "id": 62,
       "options": {
@@ -1392,7 +1392,7 @@
         "h": 9,
         "w": 24,
         "x": 0,
-        "y": 25
+        "y": 27
       },
       "id": 2,
       "options": {
@@ -1488,7 +1488,7 @@
         "h": 7,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 36
       },
       "id": 20,
       "options": {
@@ -1598,7 +1598,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 41
+        "y": 43
       },
       "id": 56,
       "options": {
@@ -1710,7 +1710,7 @@
         "h": 8,
         "w": 24,
         "x": 0,
-        "y": 49
+        "y": 51
       },
       "id": 18,
       "options": {
@@ -1820,7 +1820,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 57
+        "y": 59
       },
       "id": 46,
       "panels": [
@@ -2042,7 +2042,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 58
+        "y": 60
       },
       "id": 24,
       "panels": [
@@ -2264,7 +2264,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 59
+        "y": 61
       },
       "id": 11,
       "panels": [
@@ -2485,7 +2485,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 60
+        "y": 62
       },
       "id": 6,
       "panels": [
@@ -2823,7 +2823,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 61
+        "y": 63
       },
       "id": 14,
       "panels": [
@@ -3352,5 +3352,5 @@
   "timezone": "",
   "title": "AESO - Status",
   "uid": "LATiptyGk",
-  "version": 2
+  "version": 4
 }
