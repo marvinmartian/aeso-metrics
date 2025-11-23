@@ -18,43 +18,86 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+
 
       - name: Log in to Docker Hub
-        uses: docker/login-action@v3
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3.6.0
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      # Setup QEMU
-      - name: Setup QEMU
-        id: qemu
-        uses: docker/setup-qemu-action@v3
+      # QEMU setup removed (not needed for linux/amd64 only)
 
       # Setup Docker BuildX
       - name: Setup Docker BuildX
         id: buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3.11.1
+
+
+
+      # Extract Docker metadata for poolprice
+      - name: Extract Docker metadata (poolprice)
+        id: meta_poolprice
+        uses: docker/metadata-action@v5.9.0
+        with:
+          images: ${{ secrets.DOCKER_USERNAME }}/poolprice
 
       # Build and push Docker image for poolprice
       - name: Build and push poolprice image
+        id: build_poolprice
         uses: docker/build-push-action@v6
         with:
           context: ./poolprice
           file: ./poolprice/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           platforms: "linux/amd64"
-          tags: ${{ secrets.DOCKER_USERNAME }}/poolprice:latest
+          tags: ${{ steps.meta_poolprice.outputs.tags }}
+
+      # Install Cosign (only if not PR)
+      - name: Install Cosign
+        if: github.event_name != 'pull_request'
+        uses: sigstore/cosign-installer@v4.0.0
+        with:
+          cosign-release: 'v2.2.2'
+
+      # Sign poolprice image with Cosign (keyless, all tags)
+      - name: Sign poolprice image with Cosign
+        if: ${{ github.event_name != 'pull_request' }}
+        env:
+          TAGS: ${{ steps.meta_poolprice.outputs.tags }}
+          DIGEST: ${{ steps.build_poolprice.outputs.digest }}
+        run: echo "$TAGS" | xargs -I {} cosign sign --yes {}@${DIGEST}
+
+
+
+      # Extract Docker metadata for weather
+      - name: Extract Docker metadata (weather)
+        id: meta_weather
+        uses: docker/metadata-action@v5.9.0
+        with:
+          images: ${{ secrets.DOCKER_USERNAME }}/weather
 
       # Build and push Docker image for weather
       - name: Build and push weather image
+        id: build_weather
         uses: docker/build-push-action@v6
         with:
           context: ./weather
           file: ./weather/Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           platforms: "linux/amd64"
-          tags: ${{ secrets.DOCKER_USERNAME }}/weather:latest
+          tags: ${{ steps.meta_weather.outputs.tags }}
+
+      # Sign weather image with Cosign (keyless, all tags)
+      - name: Sign weather image with Cosign
+        if: ${{ github.event_name != 'pull_request' }}
+        env:
+          TAGS: ${{ steps.meta_weather.outputs.tags }}
+          DIGEST: ${{ steps.build_weather.outputs.digest }}
+        run: echo "$TAGS" | xargs -I {} cosign sign --yes {}@${DIGEST}
